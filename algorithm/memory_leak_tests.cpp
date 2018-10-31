@@ -24,6 +24,7 @@
 #include"depth_first_paths.h"
 #include"depth_first_order.h"
 #include"digraph.h"
+#include"dijkstra_sp.h"
 #include"dijkstra_undirected_sp.h"
 #include"directed_cycle.h"
 #include"directed_edge.h"
@@ -147,7 +148,8 @@ int main(int argc, char *argv[]) {
 	//Topological::MainTest();
 	//TopologicalX::MainTest();
 	//KosarajuSharirSCC::MainTest();
-	DijkstraUndirectedSP::MainTest();
+	//DijkstraUndirectedSP::MainTest();
+	//DijkstraSP::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;

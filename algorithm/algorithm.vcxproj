@@ -133,6 +133,8 @@
     <ClInclude Include="depth_first_order.h" />
     <ClInclude Include="depth_first_paths.h" />
     <ClInclude Include="digraph.h" />
+    <ClInclude Include="dijkstra_allpairs_sp.h" />
+    <ClInclude Include="dijkstra_sp.h" />
     <ClInclude Include="dijkstra_undirected_sp.h" />
     <ClInclude Include="directed_cycle.h" />
     <ClInclude Include="directed_edge.h" />

@@ -219,6 +219,12 @@
     <ClInclude Include="dijkstra_undirected_sp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dijkstra_sp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dijkstra_allpairs_sp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">

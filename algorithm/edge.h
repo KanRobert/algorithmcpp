@@ -1,7 +1,9 @@
 #pragma once
+#pragma warning (disable : 4996)
 #include<stdexcept>
 #include<string>
 #include<iostream>
+#include<cstdio>
 
 namespace algorithmcpp {
 	class Edge {
@@ -45,9 +47,9 @@ namespace algorithmcpp {
 		}
 
 		std::string ToString() const {
-			std::string s;
-			s += std::to_string(v_) + "-" + std::to_string(w_) + " " + std::to_string(edge_weight_);
-			return s;
+			char s[32];
+			sprintf(s,"%u-%u %.2f", static_cast<unsigned>(v_), static_cast<unsigned>(w_), edge_weight_);
+			return std::string(s);
 		}
 
 		bool IsValid() const {

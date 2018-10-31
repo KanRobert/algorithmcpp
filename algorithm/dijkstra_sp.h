@@ -1,7 +1,7 @@
 #pragma once
-#include"edge.h"
+#include"directed_edge.h"
 #include"index_min_pq.h"
-#include"edge_weighted_graph.h"
+#include"edge_weighted_digraph.h"
 #include"stack.h"
 #include<limits>
 #include<vector>
@@ -11,23 +11,23 @@
 #include<iomanip>
 
 namespace algorithmcpp {
-	class DijkstraUndirectedSP {
+	class DijkstraSP {
 	private:
 		std::vector<double> dist_to_;
-		std::vector<Edge> edge_to_;
+		std::vector<DirectedEdge> edge_to_;
 		IndexMinPQ<double> pq_;
 
 	public:
-		DijkstraUndirectedSP() = delete;
-		DijkstraUndirectedSP(const DijkstraUndirectedSP&) = default;
-		DijkstraUndirectedSP(DijkstraUndirectedSP &&) noexcept = default;
-		DijkstraUndirectedSP &operator=(const DijkstraUndirectedSP &) = default;
-		DijkstraUndirectedSP &operator=(DijkstraUndirectedSP &&) noexcept = default;
-		~DijkstraUndirectedSP() = default;
+		DijkstraSP() = delete;
+		DijkstraSP(const DijkstraSP&) = default;
+		DijkstraSP(DijkstraSP &&) noexcept = default;
+		DijkstraSP &operator=(const DijkstraSP &) = default;
+		DijkstraSP &operator=(DijkstraSP &&) noexcept = default;
+		~DijkstraSP() = default;
 
-		DijkstraUndirectedSP(const EdgeWeightedGraph &G, size_t s) :
-			dist_to_(std::vector<double>(G.V())),edge_to_(std::vector<Edge>(G.V())),pq_(IndexMinPQ<double>(G.V())){
-			for (const Edge &e : G.Edges()) {
+		DijkstraSP(const EdgeWeightedDigraph &G, size_t s) :
+			dist_to_(std::vector<double>(G.V())), edge_to_(std::vector<DirectedEdge>(G.V())), pq_(IndexMinPQ<double>(G.V())) {
+			for (const DirectedEdge &e : G.Edges()) {
 				if (e.Weight() < 0) throw std::invalid_argument("edge " + e.ToString() + "has negative weight");
 			}
 			ValidateVertex(s);
@@ -38,8 +38,8 @@ namespace algorithmcpp {
 			pq_.Insert(s, dist_to_[s]);
 			while (!pq_.IsEmpty()) {
 				size_t v = pq_.DelMin();
-				for (const Edge &e : G.Adj(v)) {
-					Relax(e, v);
+				for (const DirectedEdge &e : G.Adj(v)) {
+					Relax(e);
 				}
 			}
 		}
@@ -51,12 +51,13 @@ namespace algorithmcpp {
 				throw std::invalid_argument("vertex " + std::to_string(v) + " is not between 0 and " + std::to_string(n_vertices - 1));
 		}
 
-		void Relax(const Edge &e, size_t v) {
-			size_t w = e.Other(v);
+		void Relax(const DirectedEdge &e) {
+			size_t v = e.From();
+			size_t w = e.To();
 			if (dist_to_[w] > dist_to_[v] + e.Weight()) {
 				dist_to_[w] = dist_to_[v] + e.Weight();
 				edge_to_[w] = e;
-				if (pq_.Contains(w)) pq_.DecreaseKey(w,dist_to_[w]);
+				if (pq_.Contains(w)) pq_.DecreaseKey(w, dist_to_[w]);
 				else pq_.Insert(w, dist_to_[w]);
 			}
 		}
@@ -72,28 +73,26 @@ namespace algorithmcpp {
 			return dist_to_[v] != std::numeric_limits<double>::max();
 		}
 
-		Stack<Edge> PathTo(size_t v) const {
+		Stack<DirectedEdge> PathTo(size_t v) const {
 			ValidateVertex(v);
-			if (!HasPathTo(v)) return Stack<Edge>();
-			Stack<Edge> path;
-			size_t x = v;
-			for (Edge e = edge_to_[v]; e.IsValid(); e = edge_to_[x]) {
+			if (!HasPathTo(v)) return Stack<DirectedEdge>();
+			Stack<DirectedEdge> path;
+			for (DirectedEdge e = edge_to_[v]; e.IsValid(); e = edge_to_[e.From()]) {
 				path.Push(e);
-				x = e.Other(x);
 			}
 			return path;
 		}
 
 		static void MainTest(int argc = 0, char *argv[] = nullptr) {
-			std::ifstream in("../file/tinyEWG.txt");
-			EdgeWeightedGraph G(in);
-			size_t s = 6;
-			DijkstraUndirectedSP sp(G, s);
+			std::ifstream in("../file/tinyEWD.txt");
+			EdgeWeightedDigraph G(in);
+			size_t s = 0;
+			DijkstraSP sp(G, s);
 			for (size_t t = 0; t < G.V(); ++t) {
 				if (sp.HasPathTo(t)) {
-					std::cout << s << " to " << t << " (" << std::fixed << std::setprecision(2) <<sp.DistTo(t) << ")  ";
-					for (const Edge &e : sp.PathTo(t)) {
-						std::cout << e.ToString()<< "  ";
+					std::cout << s << " to " << t << " (" << std::fixed << std::setprecision(2) << sp.DistTo(t) << ")  ";
+					for (const DirectedEdge &e : sp.PathTo(t)) {
+						std::cout << e.ToString() << "  ";
 					}
 					std::cout << "\n";
 				}
