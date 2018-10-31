@@ -24,6 +24,7 @@
 #include"depth_first_paths.h"
 #include"depth_first_order.h"
 #include"digraph.h"
+#include"dijkstra_undirected_sp.h"
 #include"directed_cycle.h"
 #include"directed_edge.h"
 #include"doubling_ratio.h"
@@ -35,6 +36,7 @@
 #include"heap.h"
 #include"index_max_pq.h"
 #include"index_min_pq.h"
+#include"kosaraju_sharir_scc.h"
 #include"kruskal_mst.h"
 #include"lazy_prim_mst.h"
 #include"linear_probing_hashst.h"
@@ -143,8 +145,9 @@ int main(int argc, char *argv[]) {
 	//SymbolGraph::MainTest();
 	//SymbolDigraph::MainTest();
 	//Topological::MainTest();
-	TopologicalX::MainTest();
-
+	//TopologicalX::MainTest();
+	//KosarajuSharirSCC::MainTest();
+	DijkstraUndirectedSP::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;

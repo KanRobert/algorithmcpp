@@ -8,6 +8,7 @@ namespace algorithmcpp {
 		friend bool operator<(const DirectedEdge &, const DirectedEdge &);
 		friend bool operator>(const DirectedEdge &, const DirectedEdge &);
 		friend bool operator==(const DirectedEdge &, const DirectedEdge &);
+		friend bool operator!=(const DirectedEdge &, const DirectedEdge &);
 		friend bool operator<=(const DirectedEdge &, const DirectedEdge &);
 		friend bool operator>=(const DirectedEdge &, const DirectedEdge &);
 		friend int Compare(const DirectedEdge &, const DirectedEdge &);
@@ -16,6 +17,7 @@ namespace algorithmcpp {
 		size_t v_ = 0;
 		size_t w_ = 0;
 		double edge_weight_ = 0.0;
+		bool valid_ = false;
 
 	public:
 		DirectedEdge() = default;
@@ -26,7 +28,7 @@ namespace algorithmcpp {
 		~DirectedEdge() = default;
 
 		DirectedEdge(size_t v, size_t w, double edge_weight) :
-			v_(v), w_(w), edge_weight_(edge_weight) {}
+			v_(v), w_(w), edge_weight_(edge_weight),valid_(true) {}
 
 		size_t From() const {
 			return v_;
@@ -46,6 +48,10 @@ namespace algorithmcpp {
 			return s;
 		}
 
+		bool IsValid() const {
+			return valid_;
+		}
+
 		static void MainTest(int argc = 0, char *argv[] = nullptr) {
 			DirectedEdge edge(12, 34, 5.67);
 			std::cout << edge.ToString() << std::endl;
@@ -55,6 +61,7 @@ namespace algorithmcpp {
 	bool operator<(const DirectedEdge &, const DirectedEdge &);
 	bool operator>(const DirectedEdge &, const DirectedEdge &);
 	bool operator==(const DirectedEdge &, const DirectedEdge &);
+	bool operator!=(const DirectedEdge &, const DirectedEdge &);
 	bool operator<=(const DirectedEdge &, const DirectedEdge &);
 	bool operator>=(const DirectedEdge &, const DirectedEdge &);
 	int Compare(const DirectedEdge &, const DirectedEdge &);

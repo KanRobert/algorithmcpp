@@ -216,6 +216,9 @@
     <ClInclude Include="kosaraju_sharir_scc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dijkstra_undirected_sp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">

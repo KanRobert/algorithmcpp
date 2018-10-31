@@ -13,7 +13,7 @@ namespace algorithmcpp {
 	class PrimMST {
 	private:
 		std::vector<Edge> edge_to_;
-		std::vector<double> distTo;
+		std::vector<double> dist_to_;
 		std::vector<bool> marked_;
 		IndexMinPQ<double> pq_;
 
@@ -26,7 +26,7 @@ namespace algorithmcpp {
 		~PrimMST() = default;
 
 		PrimMST(const EdgeWeightedGraph &G) :
-			edge_to_(std::vector<Edge>(G.V())),distTo(std::vector<double>(G.V(),std::numeric_limits<double>::max())),marked_(std::vector<bool>(G.V())),pq_(IndexMinPQ<double>(G.V())) {
+			edge_to_(std::vector<Edge>(G.V())),dist_to_(std::vector<double>(G.V(),std::numeric_limits<double>::max())),marked_(std::vector<bool>(G.V())),pq_(IndexMinPQ<double>(G.V())) {
 			for (size_t v = 0; v < G.V(); ++v) {
 				if (!marked_[v]) {
 					Prim(G, v);
@@ -36,8 +36,8 @@ namespace algorithmcpp {
 
 	private:
 		void Prim(const EdgeWeightedGraph &G, size_t s) {
-			distTo[s] = 0.0;
-			pq_.Insert(s, distTo[s]);
+			dist_to_[s] = 0.0;
+			pq_.Insert(s, dist_to_[s]);
 			while (!pq_.IsEmpty()) {
 				size_t v = pq_.DelMin();
 				Scan(G, v);
@@ -49,11 +49,11 @@ namespace algorithmcpp {
 			for (const Edge &e : G.Adj(v)) {
 				size_t w = e.Other(v);
 				if (marked_[w]) continue;
-				if (e.Weight() < distTo[w]) {
-					distTo[w] = e.Weight();
+				if (e.Weight() < dist_to_[w]) {
+					dist_to_[w] = e.Weight();
 					edge_to_[w] = e;
-					if (pq_.Contains(w)) pq_.DecreaseKey(w, distTo[w]);
-					else pq_.Insert(w, distTo[w]);
+					if (pq_.Contains(w)) pq_.DecreaseKey(w, dist_to_[w]);
+					else pq_.Insert(w, dist_to_[w]);
 				}
 			}
 		}

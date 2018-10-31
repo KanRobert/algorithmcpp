@@ -1,7 +1,10 @@
 #pragma once
 #include"digraph.h"
-#include<vector>
 #include"depth_first_order.h"
+#include"queue.h"
+#include<vector>
+#include<fstream>
+#include<iostream>
 
 namespace algorithmcpp {
 	class KosarajuSharirSCC {
@@ -38,9 +41,46 @@ namespace algorithmcpp {
 			}
 		}
 
-	public:
-		size_t count() const {
+		void ValidateVertex(size_t v) const {
+			size_t n_vertices = marked_.size();
+			if (v >= n_vertices)
+				throw std::invalid_argument("vertex " + std::to_string(v) + " is not between 0 and " + std::to_string(n_vertices - 1));
+		}
 
+	public:
+		size_t Count() const {
+			return count_;
+		}
+
+		bool StronglyConnected(size_t v, size_t w) const {
+			ValidateVertex(v);
+			ValidateVertex(w);
+			return id_[v] == id_[w];
+		}
+
+		size_t Id(size_t v) const {
+			ValidateVertex(v);
+			return id_[v];
+		}
+
+		static void MainTest(int argc = 0, char *argv[] = nullptr) {
+			std::ifstream in("../file/mediumDG.txt");
+			Digraph G(in);
+			KosarajuSharirSCC scc(G);
+
+			size_t m = scc.Count();
+			std::cout << m << " strong components" << "\n";
+			std::vector<Queue<size_t>> components(m);
+			for (size_t v = 0; v < G.V(); ++v) {
+				components[scc.Id(v)].Enqueue(v);
+			}
+
+			for (size_t i = 0; i < m; ++i) {
+				for (size_t v : components[i]) {
+					std::cout << v << " ";
+				}
+				std::cout << "\n";
+			}
 		}
 	};
 }

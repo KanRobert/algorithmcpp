@@ -21,6 +21,10 @@ namespace algorithmcpp {
 		return true;
 	}
 
+	bool operator!=(const Edge &lhs, const Edge &rhs) {
+		return !(lhs == rhs);
+	}
+
 	bool operator<=(const Edge &lhs, const Edge &rhs) {
 		return Compare(lhs, rhs) <= 0;
 	}

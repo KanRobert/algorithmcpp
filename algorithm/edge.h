@@ -10,12 +10,14 @@ namespace algorithmcpp {
 		friend bool operator==(const Edge &, const Edge &);
 		friend bool operator<=(const Edge &, const Edge &);
 		friend bool operator>=(const Edge &, const Edge &);
+		friend bool operator!=(const Edge &, const Edge &);
 		friend int Compare(const Edge &, const Edge &);
 
 	private:
 		size_t v_=0;
 		size_t w_=0;
 		double edge_weight_=0.0;
+		bool valid_ = false;
 
 	public:
 		Edge() = default;
@@ -26,7 +28,7 @@ namespace algorithmcpp {
 		~Edge() = default;
 
 		Edge(size_t v,size_t w,double edge_weight):
-			v_(v),w_(w),edge_weight_(edge_weight){}
+			v_(v),w_(w),edge_weight_(edge_weight),valid_(true){}
 
 		double Weight() const {
 			return edge_weight_;
@@ -48,6 +50,10 @@ namespace algorithmcpp {
 			return s;
 		}
 
+		bool IsValid() const {
+			return valid_;
+		}
+
 		static void MainTest(int argc = 0, char *argv[] = nullptr) {
 			Edge edge(12, 34, 5.67);
 			std::cout << edge.ToString() << std::endl;
@@ -59,5 +65,6 @@ namespace algorithmcpp {
 	bool operator==(const Edge &, const Edge &);
 	bool operator<=(const Edge &, const Edge &);
 	bool operator>=(const Edge &, const Edge &);
+	bool operator!=(const Edge &, const Edge &);
 	int Compare(const Edge &, const Edge &);
 }
