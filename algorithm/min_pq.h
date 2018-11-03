@@ -7,9 +7,9 @@
 #include<initializer_list>
 #include<stdexcept>
 
-#pragma push_macro("Free")
+#pragma push_macro("free")
 #pragma push_macro("min")
-#undef Free
+#undef free
 #undef min
 
 namespace algorithmcpp {
@@ -202,4 +202,4 @@ namespace algorithmcpp {
 }
 
 #pragma pop_macro("min")
-#pragma pop_macro("Free")
+#pragma pop_macro("free")

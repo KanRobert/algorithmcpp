@@ -45,11 +45,13 @@
 #include"kruskal_mst.h"
 #include"lazy_prim_mst.h"
 #include"linear_probing_hashst.h"
+#include"lsd.h"
 #include"max_pq.h"
 #include"merge.h"
 #include"merge_bu.h"
 #include"merge_x.h"
 #include"min_pq.h"
+#include"msd.h"
 #include"point2d.h"
 #include"prim_mst.h"
 #include"queue.h"
@@ -157,7 +159,9 @@ int main(int argc, char *argv[]) {
 	//AcyclicSP::MainTest();
 	//AcyclicLP::MainTest();
 	//CPM::MainTest();
-	BellmanFordSP::MainTest();
+	//BellmanFordSP::MainTest();
+	//LSD::MainTest();
+	MSD::MainTest();
 	
 	_CrtDumpMemoryLeaks();
 	system("pause");

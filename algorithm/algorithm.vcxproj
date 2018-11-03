@@ -155,11 +155,13 @@
     <ClInclude Include="kruskal_mst.h" />
     <ClInclude Include="lazy_prim_mst.h" />
     <ClInclude Include="linear_probing_hashst.h" />
+    <ClInclude Include="lsd.h" />
     <ClInclude Include="max_pq.h" />
     <ClInclude Include="merge.h" />
     <ClInclude Include="merge_bu.h" />
     <ClInclude Include="merge_x.h" />
     <ClInclude Include="min_pq.h" />
+    <ClInclude Include="msd.h" />
     <ClInclude Include="point2d.h" />
     <ClInclude Include="prim_mst.h" />
     <ClInclude Include="queue.h" />

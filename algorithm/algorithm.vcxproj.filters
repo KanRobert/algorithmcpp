@@ -237,6 +237,12 @@
     <ClInclude Include="bellman_ford_sp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lsd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="msd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">
