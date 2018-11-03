@@ -225,6 +225,18 @@
     <ClInclude Include="dijkstra_allpairs_sp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cpm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="acyclic_sp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="acyclic_lp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bellman_ford_sp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">

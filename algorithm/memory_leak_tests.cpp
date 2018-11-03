@@ -8,9 +8,12 @@
 #define new new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
 #endif
 
+#include"acyclic_lp.h"
+#include"acyclic_sp.h"
 #include"average.h"
 #include"avltree_st.h"
 #include"bag.h"
+#include"bellman_ford_sp.h"
 #include"binary_search.h"
 #include"breadth_first_directed_paths.h"
 #include"breadth_first_paths.h"
@@ -19,6 +22,7 @@
 #include"cc.h"
 #include"count.h"
 #include"counter.h"
+#include"cpm.h"
 #include"date.h"
 #include"depth_first_directed_paths.h"
 #include"depth_first_paths.h"
@@ -150,6 +154,11 @@ int main(int argc, char *argv[]) {
 	//KosarajuSharirSCC::MainTest();
 	//DijkstraUndirectedSP::MainTest();
 	//DijkstraSP::MainTest();
+	//AcyclicSP::MainTest();
+	//AcyclicLP::MainTest();
+	//CPM::MainTest();
+	BellmanFordSP::MainTest();
+	
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;

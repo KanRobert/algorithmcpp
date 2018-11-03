@@ -11,9 +11,9 @@ namespace algorithmcpp {
 	class EdgeWeightedDirectedCycle {
 	private:
 		std::vector<bool> marked_;
-		std::vector<size_t> edge_to_;
+		std::vector<DirectedEdge> edge_to_;
 		std::vector<bool> on_stack_;
-		Stack<size_t> cycle_;
+		Stack<DirectedEdge> cycle_;
 
 	public:
 		EdgeWeightedDirectedCycle() = delete;
@@ -24,7 +24,7 @@ namespace algorithmcpp {
 		~EdgeWeightedDirectedCycle() = default;
 
 		EdgeWeightedDirectedCycle(EdgeWeightedDigraph G) :
-			marked_(std::vector<bool>(G.V())), edge_to_(std::vector<size_t>(G.V())), on_stack_(std::vector<bool>(G.V())) {
+			marked_(std::vector<bool>(G.V())), edge_to_(std::vector<DirectedEdge>(G.V())), on_stack_(std::vector<bool>(G.V())) {
 			for (size_t v = 0; v < G.V(); ++v) {
 				if (!marked_[v] && cycle_.IsEmpty()) Dfs(G, v);
 			}
@@ -38,15 +38,17 @@ namespace algorithmcpp {
 				size_t w = e.To();
 				if (!cycle_.IsEmpty()) return;
 				else if (!marked_[w]) {
-					edge_to_[w] = v;
+					edge_to_[w] = e;
 					Dfs(G, w);
 				}
 				else if (on_stack_[w]) {
-					for (size_t x = v; x != w; x = edge_to_[x]) {
-						cycle_.Push(x);
+					DirectedEdge f = e;
+					while (f.From() != w) {
+						cycle_.Push(f);
+						f = edge_to_[f.From()];
 					}
-					cycle_.Push(w);
-					cycle_.Push(v);
+					cycle_.Push(f);
+					return;
 				}
 			}
 			on_stack_[v] = false;
@@ -57,7 +59,7 @@ namespace algorithmcpp {
 			return !cycle_.IsEmpty();
 		}
 
-		Stack<size_t> Cycle() const {
+		Stack<DirectedEdge> Cycle() const {
 			return cycle_;
 		}
 
@@ -67,8 +69,8 @@ namespace algorithmcpp {
 			EdgeWeightedDirectedCycle finder(G);
 			if (finder.HasCycle()) {
 				std::cout << "Directed cycle: ";
-				for (size_t v : finder.Cycle()) {
-					std::cout << v << " ";
+				for (DirectedEdge e : finder.Cycle()) {
+					std::cout << e.ToString() << " ";
 				}
 				std::cout << "\n";
 			}

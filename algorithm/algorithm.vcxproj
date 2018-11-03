@@ -117,9 +117,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="acyclic_lp.h" />
+    <ClInclude Include="acyclic_sp.h" />
     <ClInclude Include="average.h" />
     <ClInclude Include="avltree_st.h" />
     <ClInclude Include="bag.h" />
+    <ClInclude Include="bellman_ford_sp.h" />
     <ClInclude Include="binary_search.h" />
     <ClInclude Include="breadth_first_directed_paths.h" />
     <ClInclude Include="breadth_first_paths.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="cc.h" />
     <ClInclude Include="count.h" />
     <ClInclude Include="counter.h" />
+    <ClInclude Include="cpm.h" />
     <ClInclude Include="date.h" />
     <ClInclude Include="depth_first_directed_paths.h" />
     <ClInclude Include="depth_first_order.h" />
