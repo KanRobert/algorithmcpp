@@ -17,7 +17,7 @@ namespace algorithmtest
 
 		TEST_METHOD(BSTTest1)
 		{
-			BST<string, int> st;
+			BST<string, size_t> st;
 
 			st.Put("asd", 355);
 			st.Put("dsd", 25);
@@ -40,7 +40,7 @@ namespace algorithmtest
 			Assert::IsFalse(st.Contains(key), L"", LINE_INFO());
 			Assert::IsFalse(st.Get(key).has_value(), L"", LINE_INFO());
 
-			int value = st.Get("is").value();
+			size_t value = st.Get("is").value();
 			Assert::IsTrue(value == 6, L"", LINE_INFO());
 			Assert::IsTrue(st.Select(3) == "quest", L"", LINE_INFO());
 

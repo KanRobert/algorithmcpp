@@ -19,13 +19,13 @@ namespace algorithmtest
 	TEST_CLASS(UFTests)
 	{
 	private:
-		UF UnionSite(vector<pair<int, int>> links, int N)
+		UF UnionSite(vector<pair<size_t, size_t>> links, size_t N)
 		{
 			UF uf(N);
 			for (auto pair : links) 
 			{
-				int p = pair.first;
-				int q = pair.second;
+				size_t p = pair.first;
+				size_t q = pair.second;
 				if (uf.Connected(p, q)) continue;
 				uf.UnionSite(p, q);
 			}
@@ -35,7 +35,7 @@ namespace algorithmtest
 		
 		TEST_METHOD(UFTest1)
 		{
-			vector<pair<int, int>> set1
+			vector<pair<size_t, size_t>> set1
 			{
 				make_pair(1,1),
 				make_pair(2,2),
@@ -46,7 +46,7 @@ namespace algorithmtest
 			UF uf = UnionSite(set1, set1.size());
 			Assert::IsTrue(uf.SiteCount()==set1.size(), L"", LINE_INFO());
 
-			vector<pair<int, int>> set2
+			vector<pair<size_t, size_t>> set2
 			{
 				make_pair(0,1),
 				make_pair(2,3),

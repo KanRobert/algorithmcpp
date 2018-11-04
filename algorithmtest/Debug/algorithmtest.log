@@ -1,0 +1,50 @@
+﻿  stdafx.cpp
+  avltree_st_tests.cpp
+  bag_tests.cpp
+  binary_search_tests.cpp
+  bst_tests.cpp
+  max_pq_tests.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\memory(113): warning C4996: 'std::uninitialized_copy_n::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy_n' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\memory(113): note: see declaration of 'std::uninitialized_copy_n::_Unchecked_iterators::_Deprecate'
+  c:\file\algorithmcpp\algorithm\max_pq.h(136): note: see reference to function template instantiation '_FwdIt std::uninitialized_copy_n<Key*,size_t,Key*>(const _InIt,const _Diff,_FwdIt)' being compiled
+          with
+          [
+              _FwdIt=size_t *,
+              Key=size_t,
+              _InIt=size_t *,
+              _Diff=size_t
+          ]
+  c:\file\algorithmcpp\algorithm\max_pq.h(133): note: while compiling class template member function 'void algorithmcpp::MaxPQ<size_t>::Resize(size_t)'
+  c:\file\algorithmcpp\algorithm\max_pq.h(158): note: see reference to function template instantiation 'void algorithmcpp::MaxPQ<size_t>::Resize(size_t)' being compiled
+  c:\file\algorithmcpp\algorithmtest\max_pq_tests.cpp(18): note: see reference to class template instantiation 'algorithmcpp::MaxPQ<size_t>' being compiled
+  merge_bu_tests.cpp
+  merge_tests.cpp
+  merge_x_tests.cpp
+  min_pq_tests.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\memory(113): warning C4996: 'std::uninitialized_copy_n::_Unchecked_iterators::_Deprecate': Call to 'std::uninitialized_copy_n' with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\memory(113): note: see declaration of 'std::uninitialized_copy_n::_Unchecked_iterators::_Deprecate'
+  c:\file\algorithmcpp\algorithm\min_pq.h(136): note: see reference to function template instantiation '_FwdIt std::uninitialized_copy_n<Key*,size_t,Key*>(const _InIt,const _Diff,_FwdIt)' being compiled
+          with
+          [
+              _FwdIt=size_t *,
+              Key=size_t,
+              _InIt=size_t *,
+              _Diff=size_t
+          ]
+  c:\file\algorithmcpp\algorithm\min_pq.h(133): note: while compiling class template member function 'void algorithmcpp::MinPQ<size_t>::Resize(size_t)'
+  c:\file\algorithmcpp\algorithm\min_pq.h(158): note: see reference to function template instantiation 'void algorithmcpp::MinPQ<size_t>::Resize(size_t)' being compiled
+  c:\file\algorithmcpp\algorithmtest\min_pq_tests.cpp(18): note: see reference to class template instantiation 'algorithmcpp::MinPQ<size_t>' being compiled
+  queue_tests.cpp
+  quick_3way_tests.cpp
+  quick_tests.cpp
+  quick_x_tests.cpp
+  redblack_bst_tests.cpp
+  shell_tests.cpp
+  stack_tests.cpp
+  stdrandom_tests.cpp
+  uf_tests.cpp
+  unittest1.cpp
+  vector_tests.cpp
+  Generating Code...
+     Creating library C:\File\algorithmcpp\Debug\algorithmtest.lib and object C:\File\algorithmcpp\Debug\algorithmtest.exp
+  algorithmtest.vcxproj -> C:\File\algorithmcpp\Debug\algorithmtest.dll
