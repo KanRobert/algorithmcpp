@@ -1,12 +1,2 @@
-﻿  counter.cpp
-  date.cpp
-  directed_edge.cpp
-  edge.cpp
-  memory_leak_tests.cpp
-  point2d.cpp
-  stdrandom.cpp
-  stopwatch_win32.cpp
-  suffix_array.cpp
-  trimmer.cpp
-  Generating Code...
-  algorithm.vcxproj -> C:\File\algorithmcpp\Debug\algorithm.lib
+﻿  memory_leak_tests.cpp
+  algorithm.vcxproj -> C:\File\algorithmcpp\Debug\algorithm.exe

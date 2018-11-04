@@ -252,6 +252,18 @@
     <ClInclude Include="trimmer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="suffix_array_x.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="longest_repeated_substring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="longest_common_substring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">

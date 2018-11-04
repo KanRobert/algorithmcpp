@@ -102,7 +102,7 @@ namespace algorithmcpp {
 		}
 
 		std::string Select(size_t i) const {
-			if (i<0 || i >= suffixes_.size()) throw std::invalid_argument("");
+			if (i >= suffixes_.size()) throw std::invalid_argument("");
 			return suffixes_[i].ToString();
 		}
 

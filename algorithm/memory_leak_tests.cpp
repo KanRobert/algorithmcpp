@@ -45,6 +45,8 @@
 #include"kruskal_mst.h"
 #include"lazy_prim_mst.h"
 #include"linear_probing_hashst.h"
+#include"longest_common_substring.h"
+#include"longest_repeated_substring.h"
 #include"lsd.h"
 #include"max_pq.h"
 #include"merge.h"
@@ -73,6 +75,7 @@
 #include"stopwatch.h"
 #include"stopwatch_win32.h"
 #include"suffix_array.h"
+#include"suffix_array_x.h"
 #include"symbol_digraph.h"
 #include"symbol_graph.h"
 #include"three_sum.h"
@@ -166,9 +169,11 @@ int main(int argc, char *argv[]) {
 	//LSD::MainTest();
 	//MSD::MainTest();
 	//Quick3String::MainTest();
-	SuffixArray::MainTest();
-	Trimmer::MainTest();
-	
+	//SuffixArray::MainTest();
+	//Trimmer::MainTest();
+	//SuffixArrayX::MainTest();
+	//LongestRepeatedSubstring::MainTest();
+	LongestCommonSubstring::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;
