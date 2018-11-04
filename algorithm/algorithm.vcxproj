@@ -39,7 +39,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -166,6 +166,7 @@
     <ClInclude Include="prim_mst.h" />
     <ClInclude Include="queue.h" />
     <ClInclude Include="quick.h" />
+    <ClInclude Include="quick_3_string.h" />
     <ClInclude Include="quick_3way.h" />
     <ClInclude Include="quick_find_uf.h" />
     <ClInclude Include="quick_union_uf.h" />
@@ -182,12 +183,14 @@
     <ClInclude Include="stdrandom.h" />
     <ClInclude Include="stopwatch.h" />
     <ClInclude Include="stopwatch_win32.h" />
+    <ClInclude Include="suffix_array.h" />
     <ClInclude Include="symbol_digraph.h" />
     <ClInclude Include="symbol_graph.h" />
     <ClInclude Include="three_sum.h" />
     <ClInclude Include="three_sum_fast.h" />
     <ClInclude Include="topological.h" />
     <ClInclude Include="topological_x.h" />
+    <ClInclude Include="trimmer.h" />
     <ClInclude Include="uf.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="weighted_quick_union_uf.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="whitelist.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="counter.cpp" />
     <ClCompile Include="date.cpp" />
     <ClCompile Include="directed_edge.cpp" />
     <ClCompile Include="edge.cpp" />
@@ -202,6 +206,8 @@
     <ClCompile Include="point2d.cpp" />
     <ClCompile Include="stdrandom.cpp" />
     <ClCompile Include="stopwatch_win32.cpp" />
+    <ClCompile Include="suffix_array.cpp" />
+    <ClCompile Include="trimmer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

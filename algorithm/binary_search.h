@@ -2,6 +2,7 @@
 #include<vector>
 #include<algorithm>
 #include<cassert>
+#include<optional>
 
 namespace algorithmcpp {
 
@@ -12,16 +13,16 @@ namespace algorithmcpp {
 		BinarySearch &operator=(const BinarySearch &) = delete;
 		~BinarySearch() = delete;
 
-		static int IndexOf(const std::vector<Item> &a, const Item &key) {
-			int lo = 0;
-			int hi = a.size() - 1;
-			while (lo <= hi) {
-				int mid = lo + (hi - lo) / 2;
+		static std::optional<size_t> IndexOf(const std::vector<Item> &a, const Item &key) {
+			size_t lo = 0;
+			size_t hi = a.size() - 1;
+			while (lo <= hi && hi<a.size()) {
+				size_t mid = lo + (hi - lo) / 2;
 				if (key < a[mid]) hi = mid - 1;
 				else if (key > a[mid]) lo = mid + 1;
-				else return mid;
+				else return std::optional<size_t>(mid);
 			}
-			return -1;
+			return std::optional<size_t>();
 		}
 
 		static int Rank(const Item &key, const std::vector<Item> &a) {
@@ -33,9 +34,11 @@ namespace algorithmcpp {
 			std::sort(whitelist.begin(), whitelist.end());
 			
 			int key=6;
-			assert(BinarySearch<int>::IndexOf(whitelist, key) == -1);
-			assert(BinarySearch<int>::IndexOf(whitelist, 3) == 1);
+			assert(!IndexOf(whitelist, key).has_value());
+			assert(IndexOf(whitelist, 3).value() == 1);
 
+			std::vector<int> whitelist2{ 1 };
+			assert(!IndexOf(whitelist2, 0).has_value());
 		}
 	};
 

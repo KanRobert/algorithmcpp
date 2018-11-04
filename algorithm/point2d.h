@@ -13,6 +13,7 @@ namespace algorithmcpp {
 		friend bool operator<(const Point2D &, const Point2D &);
 		friend bool operator>(const Point2D &, const Point2D &);
 		friend bool operator==(const Point2D &, const Point2D &);
+		friend bool operator!=(const Point2D &, const Point2D &);
 		friend bool operator<=(const Point2D &, const Point2D &);
 		friend bool operator>=(const Point2D &, const Point2D &);
 		friend int Compare(const Point2D &, const Point2D &);
@@ -166,6 +167,7 @@ namespace algorithmcpp {
 	bool operator<(const Point2D &, const Point2D &);
 	bool operator>(const Point2D &, const Point2D &);
 	bool operator==(const Point2D &, const Point2D &);
+	bool operator!=(const Point2D &, const Point2D &);
 	bool operator<=(const Point2D &, const Point2D &);
 	bool operator>=(const Point2D &, const Point2D &);
 	int Compare(const Point2D &, const Point2D &);

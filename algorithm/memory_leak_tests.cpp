@@ -60,6 +60,7 @@
 #include"quick_find_uf.h"
 #include"quick_union_uf.h"
 #include"quick_x.h"
+#include"quick_3_string.h"
 #include"redblack_bst.h"
 #include"resizing_array_bag.h"
 #include"separate_chaining_hashst.h"
@@ -71,12 +72,14 @@
 #include"stdrandom.h"
 #include"stopwatch.h"
 #include"stopwatch_win32.h"
+#include"suffix_array.h"
 #include"symbol_digraph.h"
 #include"symbol_graph.h"
 #include"three_sum.h"
 #include"three_sum_fast.h"
 #include"topological.h"
 #include"topological_x.h"
+#include"trimmer.h"
 #include"uf.h"
 #include"vector.h"
 #include"weighted_quick_union_uf.h"
@@ -161,7 +164,10 @@ int main(int argc, char *argv[]) {
 	//CPM::MainTest();
 	//BellmanFordSP::MainTest();
 	//LSD::MainTest();
-	MSD::MainTest();
+	//MSD::MainTest();
+	//Quick3String::MainTest();
+	SuffixArray::MainTest();
+	Trimmer::MainTest();
 	
 	_CrtDumpMemoryLeaks();
 	system("pause");

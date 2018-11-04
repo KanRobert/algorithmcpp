@@ -28,6 +28,10 @@ namespace algorithmcpp {
 		return true;
 	}
 
+	bool operator!=(const Point2D &lhs, const Point2D &rhs) {
+		return !(lhs == rhs);
+	}
+
 	bool operator<=(const Point2D &lhs, const Point2D &rhs) {
 		return Compare(lhs, rhs) <= 0;
 	}

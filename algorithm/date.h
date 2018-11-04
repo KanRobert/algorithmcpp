@@ -12,6 +12,7 @@ namespace algorithmcpp {
 		friend bool operator<(const Date &, const Date &);
 		friend bool operator>(const Date &, const Date &);
 		friend bool operator==(const Date &, const Date &);
+		friend bool operator!=(const Date &, const Date &);
 		friend bool operator<=(const Date &, const Date &);
 		friend bool operator>=(const Date &, const Date &);
 		friend int Compare(const Date &, const Date &);
@@ -107,6 +108,7 @@ namespace algorithmcpp {
 	bool operator<(const Date &, const Date &);
 	bool operator>(const Date &, const Date &);
 	bool operator==(const Date &, const Date &);
+	bool operator!=(const Date &, const Date &);
 	bool operator<=(const Date &, const Date &);
 	bool operator>=(const Date &, const Date &);
 	int Compare(const Date &, const Date &);

@@ -243,6 +243,15 @@
     <ClInclude Include="msd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="quick_3_string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="suffix_array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trimmer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">
@@ -264,6 +273,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stopwatch_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="counter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="suffix_array.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trimmer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

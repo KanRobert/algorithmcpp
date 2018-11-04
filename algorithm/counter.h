@@ -6,6 +6,17 @@
 
 namespace algorithmcpp {
 	class Counter {
+		friend bool operator<(const Counter &, const Counter &);
+		friend bool operator>(const Counter &, const Counter &);
+		friend bool operator==(const Counter &, const Counter &);
+		friend bool operator!=(const Counter &, const Counter &);
+		friend bool operator<=(const Counter &, const Counter &);
+		friend bool operator>=(const Counter &, const Counter &);
+		friend int Compare(const Counter &, const Counter &);
+	private:
+		const std::string name_;
+		size_t count_ = 0;
+
 	public:
 		Counter(const Counter &) = default;
 		Counter &operator=(const Counter &) = default;
@@ -13,10 +24,6 @@ namespace algorithmcpp {
 		Counter &operator=(Counter &&) noexcept = default;
 		Counter(std::string id):name_(id) {};
 		~Counter() = default;
-
-	private:
-		const std::string name_;
-		size_t count_ = 0;
 
 	public:
 		void Increment() {
@@ -29,12 +36,6 @@ namespace algorithmcpp {
 
 		std::string ToString() const {
 			return std::to_string(count_) + " " + name_;
-		}
-
-		int CompareTo(const Counter &that) const {
-			if (count_ < that.count_) return -1;
-			else if (count_ > that.count_) return +1;
-			else return 0;
 		}
 
 		static void MainTest(int argc = 0, char* argv[] = nullptr) {
@@ -55,4 +56,12 @@ namespace algorithmcpp {
 			}
 		}
 	};
+	
+	bool operator<(const Counter &, const Counter &);
+	bool operator>(const Counter &, const Counter &);
+	bool operator==(const Counter &, const Counter &);
+	bool operator!=(const Counter &, const Counter &);
+	bool operator<=(const Counter &, const Counter &);
+	bool operator>=(const Counter &, const Counter &);
+	int Compare(const Counter &, const Counter &);
 }

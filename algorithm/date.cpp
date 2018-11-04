@@ -27,6 +27,10 @@ namespace algorithmcpp {
 		return true;
 	}
 
+	bool operator!=(const Date &lhs, const Date &rhs) {
+		return !(lhs == rhs);
+	}
+
 	bool operator<=(const Date &lhs, const Date &rhs) {
 		return Compare(lhs, rhs) <= 0;
 	}
