@@ -1,6 +1,7 @@
 #pragma once
 #include"suffix_array.h"
 #include"stdin.h"
+#include"substring.h"
 #include<string>
 #include<algorithm>
 #include<regex>
@@ -16,14 +17,14 @@ namespace algorithmcpp {
 		~LongestCommonSubstring() = delete;
 
 	private:
-		static std::string Lcp(const std::string &s, size_t p, const std::string &t, size_t q) {
+		static Substring Lcp(const std::string &s, size_t p, const std::string &t, size_t q) {
 			size_t n = std::min(s.size() - p, t.size() - q);
 			for (size_t i = 0; i < n; ++i) {
 				if (s[p + i] != t[q + i]) {
-					return s.substr(p, i);
+					return Substring(s, p, i);
 				}
 			}
-			return s.substr(p, n);
+			return Substring(s, p, n);
 		}
 
 		static int Compare(const std::string &s, size_t p, const std::string &t, size_t q) {
@@ -42,17 +43,17 @@ namespace algorithmcpp {
 			SuffixArray suffix1(s);
 			SuffixArray suffix2(t);
 
-			std::string lcs;
+			Substring lcs;
 			size_t i = 0, j = 0;
 			while (i < s.size() && j < t.size()) {
 				size_t p = suffix1.Index(i);
 				size_t q = suffix2.Index(j);
-				std::string x = Lcp(s, p, t, q);
-				if (x.size() > lcs.size()) lcs = x;
+				Substring x = Lcp(s, p, t, q);
+				if (x.Size() > lcs.Size()) lcs = x;
 				if (Compare(s, p, t, q) < 0) ++i;
 				else ++j;
 			}
-			return lcs;
+			return lcs.ToString();
 		}
 
 		static void MainTest(int argc = 0, char *argv[] = nullptr) {

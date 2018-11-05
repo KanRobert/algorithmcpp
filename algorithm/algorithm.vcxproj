@@ -186,6 +186,7 @@
     <ClInclude Include="stdrandom.h" />
     <ClInclude Include="stopwatch.h" />
     <ClInclude Include="stopwatch_win32.h" />
+    <ClInclude Include="substring.h" />
     <ClInclude Include="suffix_array.h" />
     <ClInclude Include="suffix_array_x.h" />
     <ClInclude Include="symbol_digraph.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="point2d.cpp" />
     <ClCompile Include="stdrandom.cpp" />
     <ClCompile Include="stopwatch_win32.cpp" />
+    <ClCompile Include="substring.cpp" />
     <ClCompile Include="suffix_array.cpp" />
     <ClCompile Include="trimmer.cpp" />
   </ItemGroup>

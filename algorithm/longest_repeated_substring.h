@@ -1,6 +1,7 @@
 #pragma once
 #include"suffix_array.h"
 #include"stdin.h"
+#include"substring.h"
 #include<string>
 #include<regex>
 
@@ -14,14 +15,14 @@ namespace algorithmcpp {
 		static std::string Lrs(const std::string &text) {
 			size_t n = text.size();
 			SuffixArray sa(text);
-			std::string lrs;
+			Substring lrs;
 			for (size_t i = 1; i < n; ++i) {
 				size_t length = sa.Lcp(i);
-				if (length > lrs.size()) {
-					lrs = text.substr(sa.Index(i), length);
+				if (length > lrs.Size()) {
+					lrs = Substring(text, sa.Index(i), length);
 				}
 			}
-			return lrs;
+			return lrs.ToString();
 		}
 
 		static void MainTest(int argc = 0, char *argv[] = nullptr) {
