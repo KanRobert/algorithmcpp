@@ -115,13 +115,6 @@ namespace algorithmcpp {
 			std::ifstream in("../file/tinyEWG.txt");
 			FlowNetwork G(in);
 			std::cout << G.ToString();
-			//for (size_t i = 0; i < G.V(); ++i) {
-
-			//	for (FlowEdge e : G.Adj(i)) {
-			//		std::cout << e.ToString() << " ";
-			//	}
-			//	std::cout << "\n";
-			//}
 		}
 	};
 }

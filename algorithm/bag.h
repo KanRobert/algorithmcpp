@@ -9,15 +9,9 @@ namespace algorithmcpp {
 	template<typename Item> class Bag {
 		friend void swap<Item>(Bag<Item> &, Bag<Item> &);
 	private:
-		class Node {
-		public:
-			Item item_;
-			Node *next_=nullptr;
-		public:
-			Node() = default;
-			Node(const Node &) = delete;
-			Node &operator=(const Node &) = delete;
-			~Node() = default;
+		struct Node {
+			Item item;
+			Node *next;
 		};
 
 		Node* first_=nullptr;
@@ -26,12 +20,17 @@ namespace algorithmcpp {
 	public:
 		Bag() = default;
 		Bag(const Bag & rhs) {
-			Bag<Item> tmp;
-			for (const Node *p = rhs.first_; p != nullptr; p = p->next_) {
-				tmp.Add(p->item_);
-			}
-			for (const Node *p = tmp.first_; p != nullptr; p = p->next_) {
-				Add(p->item_);
+			Node *pre = nullptr;
+			for (const Node *p = rhs.first_; p != nullptr; p = p->next) {
+				Node *curr = new Node{ p->item ,nullptr };
+				if (n_ == 0) {
+					first_ = curr;
+				}
+				else {
+					pre->next = curr;
+				}
+				pre = curr;
+				++n_;
 			}
 		}
 		Bag &operator=(Bag rhs) {
@@ -48,7 +47,7 @@ namespace algorithmcpp {
 		~Bag() {
 			while (first_) {
 				Node *oldfirst = first_;
-				first_ = oldfirst->next_;
+				first_ = oldfirst->next;
 				delete oldfirst;
 			}
 		}
@@ -63,15 +62,13 @@ namespace algorithmcpp {
 
 		void Add(const Item &item) {
 			Node *oldfirst = first_;
-			first_ = new Node;
-			first_->item_ = item;
-			first_->next_ = oldfirst;
+			first_ = new Node{item,oldfirst};
 			++n_;
 		}
 
 		bool Contains(const Item &item) const {
-			for (const Node *p = first_; p != nullptr; p = p->next_) {
-				if (p->item_ == item) return true;
+			for (const Node *p = first_; p != nullptr; p = p->next) {
+				if (p->item == item) return true;
 			}
 			return false;
 		}
@@ -84,7 +81,7 @@ namespace algorithmcpp {
 			}
 
 			iterator &operator++() {
-				pos_ = pos_->next_;
+				pos_ = pos_->next;
 				return *this;
 			}
 
@@ -93,7 +90,7 @@ namespace algorithmcpp {
 			}
 
 			Item &operator*() const {
-				return pos_->item_;
+				return pos_->item;
 			}
 		};
 
@@ -105,7 +102,7 @@ namespace algorithmcpp {
 			}
 
 			const_iterator &operator++() {
-				pos_ = pos_->next_;
+				pos_ = pos_->next;
 				return *this;
 			}
 
@@ -114,7 +111,7 @@ namespace algorithmcpp {
 			}
 
 			const Item &operator*() const {
-				return pos_->item_;
+				return pos_->item;
 			}
 		};
 

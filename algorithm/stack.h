@@ -2,7 +2,6 @@
 #include<cassert>
 #include<stdexcept>
 
-/*Stack is exactly same as LinkedStack, so there is not need to write twice*/
 namespace algorithmcpp {
 	template<typename> class Stack;
 	template<typename Item> void swap(Stack<Item> &, Stack<Item> &);
@@ -10,32 +9,30 @@ namespace algorithmcpp {
 	template<typename Item> class Stack {
 		friend void swap<Item>(Stack<Item> &, Stack<Item> &);
 	private:
-		class Node {
-		public:
-			Item item_;
-			Node *next_ = nullptr;
-		public:
-			Node() = default;
-			Node(const Node &) = delete;
-			Node &operator=(const Node &) = delete;
-			~Node() = default;
+		struct Node {
+			Item item;
+			Node *next;
 		};
 
 		Node* first_ = nullptr;
 		size_t n_ = 0;
 
 	public:
-		Stack() {
-			assert(Check());
-		}
+		Stack() = default;
 		Stack(const Stack &rhs) {
-			Stack<Item> tmp;
-			for (const Node *p = rhs.first_; p != nullptr; p = p->next_) {
-				tmp.Push(p->item_);
+			Node *pre = nullptr;
+			for (const Node *p = rhs.first_; p != nullptr; p = p->next) {
+				Node *curr = new Node{ p->item ,nullptr};
+				if (n_ == 0) {
+					first_ = curr;
+				}
+				else {
+					pre->next = curr;
+				}
+				pre = curr;
+				++n_;				
 			}
-			for (const Node *p = tmp.first_; p != nullptr; p = p->next_) {
-				Push(p->item_);
-			}
+			
 		}
 		Stack &operator=(Stack rhs) {
 			swap(*this, rhs);
@@ -51,7 +48,7 @@ namespace algorithmcpp {
 		~Stack() {
 			while (first_) {
 				Node *oldfirst = first_;
-				first_ = oldfirst->next_;
+				first_ = oldfirst->next;
 				delete oldfirst;
 			}
 		}
@@ -66,18 +63,16 @@ namespace algorithmcpp {
 
 		void Push(const Item &item) {
 			Node *oldfirst = first_;
-			first_ = new Node;
-			first_->item_ = item;
-			first_->next_ = oldfirst;
+			first_ = new Node{item,oldfirst};
 			++n_;
 			assert(Check());
 		}
 
 		Item Pop() {
 			CheckEmpty();
-			Item item = first_->item_;
+			Item item = first_->item;
 			Node *oldfirst = first_;
-			first_ = oldfirst->next_;
+			first_ = oldfirst->next;
 			delete oldfirst;
 			--n_;
 			assert(Check());
@@ -86,7 +81,7 @@ namespace algorithmcpp {
 
 		Item Peek() {
 			CheckEmpty();
-			return first_->item_;
+			return first_->item;
 		}
 
 		class iterator {
@@ -97,7 +92,7 @@ namespace algorithmcpp {
 			}
 
 			iterator &operator++() {
-				pos_ = pos_->next_;
+				pos_ = pos_->next;
 				return *this;
 			}
 
@@ -106,7 +101,7 @@ namespace algorithmcpp {
 			}
 
 			Item &operator*() const {
-				return pos_->item_;
+				return pos_->item;
 			}
 		};
 
@@ -118,7 +113,7 @@ namespace algorithmcpp {
 			}
 
 			const_iterator &operator++() {
-				pos_ = pos_->next_;
+				pos_ = pos_->next;
 				return *this;
 			}
 
@@ -127,7 +122,7 @@ namespace algorithmcpp {
 			}
 
 			const Item &operator*() const {
-				return pos_->item_;
+				return pos_->item;
 			}
 		};
 
@@ -166,15 +161,15 @@ namespace algorithmcpp {
 			}
 			else if (n_ == 1) {
 				if (first_ == nullptr) return false;
-				if (first_->next_ != nullptr) return false;
+				if (first_->next != nullptr) return false;
 			}
 			else {
 				if (first_ == nullptr) return false;
-				if (first_->next_ == nullptr) return false;
+				if (first_->next == nullptr) return false;
 			}
 
 			size_t numberOfNodes = 0;
-			for (Node *x = first_; (x != nullptr) && (numberOfNodes <= n_); x = x->next_) {
+			for (Node *x = first_; (x != nullptr) && (numberOfNodes <= n_); x = x->next) {
 				++numberOfNodes;
 			}
 			if (numberOfNodes != n_) return false;

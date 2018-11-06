@@ -1,16 +1,7 @@
-﻿  counter.cpp
-  date.cpp
-  directed_edge.cpp
-  edge.cpp
-  ford_fulkerson.cpp
-  memory_leak_tests.cpp
-  point2d.cpp
-  stdrandom.cpp
-  stopwatch_win32.cpp
-  substring.cpp
-  suffix_array.cpp
-  trimmer.cpp
+﻿  memory_leak_tests.cpp
   Generating code
-  All 1162 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  36 of 106 functions (34.0%) were compiled, the rest were copied from previous compilation.
+    28 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   algorithm.vcxproj -> C:\File\algorithmcpp\Release\algorithm.exe

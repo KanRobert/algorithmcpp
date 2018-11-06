@@ -125,6 +125,7 @@
     <ClInclude Include="bag.h" />
     <ClInclude Include="bellman_ford_sp.h" />
     <ClInclude Include="binary_search.h" />
+    <ClInclude Include="bipartite.h" />
     <ClInclude Include="breadth_first_directed_paths.h" />
     <ClInclude Include="breadth_first_paths.h" />
     <ClInclude Include="bst.h" />

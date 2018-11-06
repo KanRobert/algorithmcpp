@@ -276,6 +276,9 @@
     <ClInclude Include="ford_fulkerson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bipartite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">

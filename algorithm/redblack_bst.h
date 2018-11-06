@@ -20,8 +20,8 @@ namespace algorithmcpp {
 	public:
 		RedBlackBST() = default;
 		RedBlackBST(const RedBlackBST &rhs) {
-			for (const auto &key_ : rhs.Keys()) {
-				Put(key_, *rhs.Get(key_));
+			for (const auto &key : rhs.Keys()) {
+				Put(key, *rhs.Get(key));
 			}
 		}
 		RedBlackBST &operator=(RedBlackBST rhs) {
@@ -39,26 +39,24 @@ namespace algorithmcpp {
 		}
 
 	private:
-		static const bool kRed = true;
-		static const bool kBlack = false;
+		static const bool kred_ = true;
+		static const bool kblack_ = false;
 
-		class Node {
-		public:
-			Key key_;
-			Value val_;
-			Node *left_ = nullptr;
-			Node *right_ = nullptr;
-			bool color_;
-			size_t size_;
-		public:
-			Node(const Key &key,const Value &val,bool color,size_t size):key_(key),val_(val),color_(color),size_(size){}
+		struct Node {
+			Key key;
+			Value val;
+			bool color;
+			size_t size;
+			Node *left;
+			Node *right;
+
 			Node(const Node &) = delete;
 			Node &operator=(const Node &) = delete;
 			~Node() {
-				delete left_;
-				left_ = nullptr;
-				delete right_;
-				right_ = nullptr;
+				delete left;
+				left = nullptr;
+				delete right;
+				right = nullptr;
 			}
 		};
 
@@ -72,133 +70,133 @@ namespace algorithmcpp {
 
 		bool IsRed(Node *x) const{
 			if (!x) return false;
-			return x->color_ == kRed;
+			return x->color == kred_;
 		}
 
 		size_t Size(Node *x) const{
 			if (!x) return 0;
-			return x->size_;
+			return x->size;
 		}
 
-		Node *Get(Node *x, const Key &key_) const {
+		Node *Get(Node *x, const Key &key) const {
 			while (x) {
-				if (key_ < x->key_) x = x->left_;
-				else if (key_ > x->key_) x = x->right_;
+				if (key < x->key) x = x->left;
+				else if (key > x->key) x = x->right;
 				else return x;
 			}
 			return nullptr;
 		}
 
 		Node *Put(Node *h, const Key &key, const Value &val) {
-			if (!h) return new Node(key, val, kRed, 1);
-			if (key < h->key_) h->left_ = Put(h->left_, key, val);
-			else if (key > h->key_) h->right_ = Put(h->right_, key, val);
-			else h->val_ = val;
+			if (!h) return new Node{ key, val, kred_, 1 };
+			if (key < h->key) h->left = Put(h->left, key, val);
+			else if (key > h->key) h->right = Put(h->right, key, val);
+			else h->val = val;
 
-			//better than if (IsRed(h->right_)) h = RotateLeft(h);
-			if (IsRed(h->right_) && !IsRed(h->left_)) h = RotateLeft(h);
-			if (IsRed(h->left_) && IsRed(h->left_->left_)) h = RotateRight(h);
-			if (IsRed(h->left_) && IsRed(h->right_)) FlipColors(h);
-			h->size_ = Size(h->left_) + Size(h->right_) + 1;
+			//better than if (IsRed(h->right)) h = RotateLeft(h);
+			if (IsRed(h->right) && !IsRed(h->left)) h = RotateLeft(h);
+			if (IsRed(h->left) && IsRed(h->left->left)) h = RotateRight(h);
+			if (IsRed(h->left) && IsRed(h->right)) FlipColors(h);
+			h->size = Size(h->left) + Size(h->right) + 1;
 			return h;
 		}
 
 		Node *DeleteMin(Node *h) {
-			if (!h->left_) {
+			if (!h->left) {
 				delete h;
 				return nullptr;
 			} 
 
-			if (!IsRed(h->left_) && !IsRed(h->left_->left_)) {
+			if (!IsRed(h->left) && !IsRed(h->left->left)) {
 				h = MoveRedLeft(h);
 			}
 
-			h->left_ = DeleteMin(h->left_);
+			h->left = DeleteMin(h->left);
 			return Balance(h);
 		}
 
 		Node *DeleteMax(Node *h) {
-			if (IsRed(h->left_)) {
+			if (IsRed(h->left)) {
 				h = RotateRight(h);
 			}
 
-			if (!h->right_) {
+			if (!h->right) {
 				delete h;
 				return nullptr;
 			}
 
-			if (!IsRed(h->right_) && !IsRed(h->right_->left_)) {
+			if (!IsRed(h->right) && !IsRed(h->right->left)) {
 				h = MoveRedRight(h);
 			}
 
-			h->right_ = DeleteMax(h->right_);
+			h->right = DeleteMax(h->right);
 
 			return Balance(h);
 		}
 
 		Node *Delete(Node *h, const Key &key) {
-			if (key < h->key_) {
-				if (!IsRed(h->left_) && !IsRed(h->left_->left_)) {
+			if (key < h->key) {
+				if (!IsRed(h->left) && !IsRed(h->left->left)) {
 					h = MoveRedLeft(h);
 				}
-				h->left_ = Delete(h->left_, key);
+				h->left = Delete(h->left, key);
 			}
 			else {
-				if (IsRed(h->left_)) {
+				if (IsRed(h->left)) {
 					h = RotateRight(h);
 				}
-				if (key == h->key_ && !h->right_) {
+				if (key == h->key && !h->right) {
 					delete h;
 					return nullptr;
 				}
-				if (!IsRed(h->right_) && !IsRed(h->right_->left_)) {
+				if (!IsRed(h->right) && !IsRed(h->right->left)) {
 					h = MoveRedRight(h);
 				}
-				if (key == h->key_) {
-					Node *x = Min(h->right_);
-					h->key_ = x->key_;
-					h->val_ = x->val_;
-					h->right_ = DeleteMin(h->right_);
+				if (key == h->key) {
+					Node *x = Min(h->right);
+					h->key = x->key;
+					h->val = x->val;
+					h->right = DeleteMin(h->right);
 				}
 				else {
-					h->right_ = Delete(h->right_, key);
+					h->right = Delete(h->right, key);
 				}
 			}
 			return Balance(h);
 		}
 
 		Node *RotateRight(Node *h) {
-			Node *x = h->left_;
-			h->left_ = x->right_;
-			x->right_ = h;
-			x->color_ = h->color_;
-			h->color_ = kRed;
-			x->size_ = h->size_;
-			h->size_ = Size(h->left_) + Size(h->right_) + 1;
+			Node *x = h->left;
+			h->left = x->right;
+			x->right = h;
+			x->color = h->color;
+			h->color = kred_;
+			x->size = h->size;
+			h->size = Size(h->left) + Size(h->right) + 1;
 			return x;
 		}
 
 		Node *RotateLeft(Node *h) {
-			Node *x = h->right_;
-			h->right_ = x->left_;
-			x->left_ = h;
-			x->color_ = h->color_;
-			h->color_ = kRed;
-			x->size_ = h->size_;
-			h->size_ = Size(h->left_) + Size(h->right_) + 1;
+			Node *x = h->right;
+			h->right = x->left;
+			x->left = h;
+			x->color = h->color;
+			h->color = kred_;
+			x->size = h->size;
+			h->size = Size(h->left) + Size(h->right) + 1;
 			return x;
 		}
 
 		void FlipColors(Node *h) {
-			h->color_ = !h->color_;
-			h->left_->color_ = !h->left_->color_;
-			h->right_->color_ = !h->right_->color_;
+			h->color = !h->color;
+			h->left->color = !h->left->color;
+			h->right->color = !h->right->color;
 		}
 
 		Node *MoveRedLeft(Node *h) {
 			FlipColors(h);
-			if (IsRed(h->right_->left_)) {
-				h->right_ = RotateRight(h->right_);
+			if (IsRed(h->right->left)) {
+				h->right = RotateRight(h->right);
 				h = RotateLeft(h);
 				FlipColors(h);
 			}
@@ -207,7 +205,7 @@ namespace algorithmcpp {
 
 		Node *MoveRedRight(Node *h) {
 			FlipColors(h);
-			if (IsRed(h->left_->left_)) {
+			if (IsRed(h->left->left)) {
 				h = RotateRight(h);
 				FlipColors(h);
 			}
@@ -215,68 +213,68 @@ namespace algorithmcpp {
 		}
 
 		Node *Balance(Node *h) {
-			if (IsRed(h->right_)) h = RotateLeft(h);
-			if (IsRed(h->left_) && IsRed(h->left_->left_)) h = RotateRight(h);
-			if (IsRed(h->left_) && IsRed(h->right_)) FlipColors(h);
+			if (IsRed(h->right)) h = RotateLeft(h);
+			if (IsRed(h->left) && IsRed(h->left->left)) h = RotateRight(h);
+			if (IsRed(h->left) && IsRed(h->right)) FlipColors(h);
 
-			h->size_ = Size(h->left_) + Size(h->right_) + 1;
+			h->size = Size(h->left) + Size(h->right) + 1;
 			return h;
 		}
 
 		int Height(Node *x) const {
 			if (!x) return -1;
-			return 1 + std::Max(Height(h->left_), Height(h->right_));
+			return 1 + std::Max(Height(h->left), Height(h->right));
 		}
 
 		Node *Min(Node *x) const {
-			if (!x->left_) return x;
-			else return Min(x->left_);
+			if (!x->left) return x;
+			else return Min(x->left);
 		}
 
 		Node *Max(Node *x) const {
-			if (!x->right_) return x;
-			else return Max(x->right_);
+			if (!x->right) return x;
+			else return Max(x->right);
 		}
 
-		Node *Floor(Node *x, const Key &key_) const {
+		Node *Floor(Node *x, const Key &key) const {
 			if (!x) return nullptr;
-			if (key_ == x->key_) return x;
-			if (key_ < x->key_) return Floor(x->left_, key_);
-			Node *t= Floor(x->right_, key_);
+			if (key == x->key) return x;
+			if (key < x->key) return Floor(x->left, key);
+			Node *t= Floor(x->right, key);
 			if (!t) return t;
 			else return x;
 		}
 
-		Node *Ceiling(Node *x, const Key &key_) const{
+		Node *Ceiling(Node *x, const Key &key) const{
 			if (!x) return nullptr;
-			if (key_ == x->key_) return x;
-			if (key_ > x->key_) return Ceiling(x->right_, key_);
-			Node *t = Ceiling(x->left_, key_);
+			if (key == x->key) return x;
+			if (key > x->key) return Ceiling(x->right, key);
+			Node *t = Ceiling(x->left, key);
 			if (!t) return t;
 			else return x;
 		}
 
 		Node *Select(Node *x, size_t k) const {
-			size_t t = Size(x->left_);
-			if (t > k) return Select(x->left_, k);
-			else if (t < k) return Select(x->right_, k - t - 1);
+			size_t t = Size(x->left);
+			if (t > k) return Select(x->left, k);
+			else if (t < k) return Select(x->right, k - t - 1);
 			else return x;
 		}
 
-		size_t Rank(const Key &key_, Node *x) const {
+		size_t Rank(const Key &key, Node *x) const {
 			if (!x) return 0;
-			if (key_ < x->key_) return Rank(key_, x->left_);
-			else if (key_ > x->key_) return 1 + Size(x->left_) + Rank(key_, x->right_);
-			else return Size(x->left_);
+			if (key < x->key) return Rank(key, x->left);
+			else if (key > x->key) return 1 + Size(x->left) + Rank(key, x->right);
+			else return Size(x->left);
 		}
 
 		void Keys(Node *x, Queue<Key> &queue, const Key &lo, const Key &hi) const {
 			if (!x) return;
-			int cmplo = Compare(lo, x->key_);
-			int cmphi = Compare(hi, x->key_);
-			if (cmplo<0) Keys(x->left_, queue, lo, hi);
-			if (cmplo <= 0 && cmphi >= 0) queue.Enqueue(x->key_);
-			if (cmphi >= 0) Keys(x->right_, queue, lo, hi);
+			int cmplo = Compare(lo, x->key);
+			int cmphi = Compare(hi, x->key);
+			if (cmplo<0) Keys(x->left, queue, lo, hi);
+			if (cmplo <= 0 && cmphi >= 0) queue.Enqueue(x->key);
+			if (cmphi >= 0) Keys(x->right, queue, lo, hi);
 		}
 
 	public:
@@ -291,7 +289,7 @@ namespace algorithmcpp {
 		std::optional<Value> Get(const Key &key) const {
 			Node *p = Get(root_, key);
 			if (!p) return std::optional<Value>();
-			else return std::optional<Value>(p->val_);
+			else return std::optional<Value>(p->val);
 		}
 
 		bool Contains(const Key &key) const {
@@ -300,40 +298,40 @@ namespace algorithmcpp {
 
 		void Put(const Key &key, const Value &val) {
 			root_ = Put(root_, key, val);
-			root_->color_ = kBlack;
+			root_->color = kblack_;
 		}
 
 		void DeleteMin() {
 			if(IsEmpty()) throw std::underflow_error("BST underflow");
 
-			if (!IsRed(root_->left_) && !IsRed(root_->right_)) {
-				root_->color_ = kRed;
+			if (!IsRed(root_->left) && !IsRed(root_->right)) {
+				root_->color = kred_;
 			}
 
 			root_ = DeleteMin(root_);
-			if (!IsEmpty()) root_->color_ = kBlack;
+			if (!IsEmpty()) root_->color = kblack_;
 		}
 
 		void DeleteMax() {
 			if (IsEmpty()) throw std::underflow_error("BST underflow");
 
-			if (!IsRed(root_->left_) && !IsRed(root_->right_)) {
-				root_->color_ = kRed;
+			if (!IsRed(root_->left) && !IsRed(root_->right)) {
+				root_->color = kred_;
 			}
 
 			root_ = DeleteMax(root_);
-			if (!IsEmpty()) root_->color_ = kBlack;
+			if (!IsEmpty()) root_->color = kblack_;
 		}
 
-		void Delete(const Key &key_) {
-			if (!Contains(key_)) return;
+		void Delete(const Key &key) {
+			if (!Contains(key)) return;
 
-			if (!IsRed(root_->left_) && !IsRed(root_->right_)) {
-				root_->color_ = kRed;
+			if (!IsRed(root_->left) && !IsRed(root_->right)) {
+				root_->color = kred_;
 			}
 
-			root_ = Delete(root_, key_);
-			if (!IsEmpty()) root_->color_ = kBlack;
+			root_ = Delete(root_, key);
+			if (!IsEmpty()) root_->color = kblack_;
 		}
 
 		int Height() const {
@@ -342,32 +340,32 @@ namespace algorithmcpp {
 
 		Key Min() const {
 			if(IsEmpty()) throw std::underflow_error("calls Min() with empty symbol table");
-			return Min(root_)->key_;
+			return Min(root_)->key;
 		}
 
 		Key Max() const {
 			if(IsEmpty()) throw std::underflow_error("calls Max() with empty symbol table");
-			return Max(root_)->key_;
+			return Max(root_)->key;
 		}
 
 		std::optional<Key> Floor(const Key &key) const {
 			if (IsEmpty()) throw std::underflow_error("calls Floor() with empty symbol table");
 			Node *x = Floor(root_, key);
 			if (!x) return std::optional<Key>();
-			else return std::optional<Key>(x->key_);
+			else return std::optional<Key>(x->key);
 		}
 
 		std::optional<Key> Ceiling(const Key &key) const {
 			if (IsEmpty()) throw std::underflow_error("calls Ceiling() with empty symbol table");
 			Node x = Ceiling(root_, key);
 			if (!x) return std::optional<Key>();
-			else return std::optional<Key>(x->key_);
+			else return std::optional<Key>(x->key);
 		}
 
 		Key Select(size_t k) const {
 			if (k >= Size()) throw std::invalid_argument("argument to Select() is invalid");
 			Node *x = Select(root_, k);
-			return x->key_;
+			return x->key;
 		}
 
 		size_t Rank(const Key &key) const {
@@ -396,8 +394,8 @@ namespace algorithmcpp {
 			RedBlackBST<std::string, int> st;
 			std::vector<std::string> vec{ "c","e","a","f","b","d","h","g" };
 			for (size_t i = 0; i != vec.size(); ++i) {
-				std::string key_ = vec[i];
-				st.Put(key_, i);
+				std::string key = vec[i];
+				st.Put(key, i);
 			}
 
 			assert(st.Contains("e"));

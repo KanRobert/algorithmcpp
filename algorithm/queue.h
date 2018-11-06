@@ -10,15 +10,9 @@ namespace algorithmcpp {
 	template<typename Item> class Queue {
 		friend void swap<Item>(Queue<Item> &, Queue<Item> &);
 	private:
-		class Node {
-		public:
-			Item item_;
-			Node *next_ = nullptr;
-		public:
-			Node() = default;
-			Node(const Node &) = delete;
-			Node &operator=(const Node &) = delete;
-			~Node() = default;
+		struct Node {
+			Item item;
+			Node *next;
 		};
 
 		Node* first_ = nullptr;
@@ -28,8 +22,8 @@ namespace algorithmcpp {
 	public:
 		Queue() = default;
 		Queue(const Queue & rhs) {
-			for (const Node *p = rhs.first_; p != nullptr; p = p->next_) {
-				Enqueue(p->item_);
+			for (const Node *p = rhs.first_; p != nullptr; p = p->next) {
+				Enqueue(p->item);
 			}
 		}
 		Queue &operator=(Queue rhs) {
@@ -48,7 +42,7 @@ namespace algorithmcpp {
 		~Queue() {
 			while (first_) {
 				Node *oldfirst = first_;
-				first_ = oldfirst->next_;
+				first_ = oldfirst->next;
 				delete oldfirst;
 			}
 		}
@@ -63,27 +57,26 @@ namespace algorithmcpp {
 
 		Item Peek() const {
 			Check();
-			return first_.item_;
+			return first_.item;
 		}
 
-		void Enqueue(const Item &item_) {
+		void Enqueue(const Item &item) {
 			Node* oldlast = last_;
-			last_ = new Node;
-			last_->item_ = item_;
+			last_ = new Node{item,nullptr};
 			if (IsEmpty()) first_ = last_;
-			else oldlast->next_ = last_;
+			else oldlast->next = last_;
 			++n_;
 		}
 
 		Item Dequeue() {
 			Check();
-			Item item_ = first_->item_;
+			Item item = first_->item;
 			Node *oldfirst = first_;
-			first_ = oldfirst->next_;
+			first_ = oldfirst->next;
 			delete oldfirst;
 			--n_;
 			if (IsEmpty()) last_ = nullptr;
-			return item_;
+			return item;
 		}
 
 		class iterator {
@@ -94,7 +87,7 @@ namespace algorithmcpp {
 			}
 
 			iterator &operator++() {
-				pos_ = pos_->next_;
+				pos_ = pos_->next;
 				return *this;
 			}
 
@@ -103,7 +96,7 @@ namespace algorithmcpp {
 			}
 
 			Item &operator*() const {
-				return pos_->item_;
+				return pos_->item;
 			}
 		};
 
@@ -115,7 +108,7 @@ namespace algorithmcpp {
 			}
 
 			const_iterator &operator++() {
-				pos_ = pos_->next_;
+				pos_ = pos_->next;
 				return *this;
 			}
 
@@ -124,7 +117,7 @@ namespace algorithmcpp {
 			}
 
 			const Item &operator*() const {
-				return pos_->item_;
+				return pos_->item;
 			}
 		};
 

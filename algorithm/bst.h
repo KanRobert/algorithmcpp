@@ -17,8 +17,8 @@ namespace algorithmcpp {
 	public:
 		BST() = default;
 		BST(const BST &rhs) {
-			for (const auto &key_ : rhs.Keys()) {
-				Put(key_, *rhs.Get(key_));
+			for (const auto &key : rhs.Keys()) {
+				Put(key, *rhs.Get(key));
 			}
 		}
 		BST &operator=(BST rhs) {
@@ -36,22 +36,20 @@ namespace algorithmcpp {
 		}
 
 	private:
-		class Node {
-		public:
-			Key key_;
-			Value val_;
-			Node *left_ = nullptr;
-			Node *right_ = nullptr;
-			size_t size_;
-		public:
-			Node(const Key &_key, const Value &_val, size_t _size) :key_(_key), val_(_val), size_(_size) {}
+		struct Node {
+			Key key;
+			Value val;
+			size_t size;
+			Node *left = nullptr;
+			Node *right = nullptr;
+
 			Node(const Node &) = delete;
 			Node &operator=(const Node &) = delete;
 			~Node() {
-				delete left_;
-				left_ = nullptr;
-				delete right_;
-				right_ = nullptr;
+				delete left;
+				left = nullptr;
+				delete right;
+				right = nullptr;
 			}
 		};
 
@@ -66,146 +64,146 @@ namespace algorithmcpp {
 
 		size_t Size(Node *x) const {
 			if (!x) return 0;
-			else return x->size_;
+			else return x->size;
 		}
 
-		Node *Get(Node *x, const Key &key_) const {
+		Node *Get(Node *x, const Key &key) const {
 			if (!x) return nullptr;
-			if (key_ < (x->key_)) return Get(x->left_, key_);
-			else if(key_>(x->key_)) return Get(x->right_, key_);
+			if (key < (x->key)) return Get(x->left, key);
+			else if(key>(x->key)) return Get(x->right, key);
 			else return x;
 		}
 
-		Node *Put(Node *x, const Key &key_, const Value &val_) {
-			if (!x) return new Node(key_, val_, 1);
-			if (key_ < x->key_) x->left_ = Put(x->left_, key_, val_);
-			else if (key_ > x->key_) x->right_ = Put(x->right_, key_, val_);
-			else x->val_ = val_;
-			x->size_ = 1 + Size(x->left_) + Size(x->right_);
+		Node *Put(Node *x, const Key &key, const Value &val) {
+			if (!x) return new Node{ key, val, 1 };
+			if (key < x->key) x->left = Put(x->left, key, val);
+			else if (key > x->key) x->right = Put(x->right, key, val);
+			else x->val = val;
+			x->size = 1 + Size(x->left) + Size(x->right);
 			return x;
 		}
 
 		Node *DeleteMin(Node *x) {
-			if (!(x->left_)) {
-				Node *ret = x->right_;
-				x->right_ = nullptr;
+			if (!(x->left)) {
+				Node *ret = x->right;
+				x->right = nullptr;
 				delete x;
 				x = nullptr;
 				return ret;
 			}
 
-			x->left_ = DeleteMin(x->left_);
-			x->size_ = Size(x->left_) + Size(x->right_) + 1;
+			x->left = DeleteMin(x->left);
+			x->size = Size(x->left) + Size(x->right) + 1;
 			return x;
 		}
 
 		Node *DeleteMax(Node *x) {
-			if (!(x->right_)) {
-				Node *ret = x->left_;
-				x->left_ = nullptr;
+			if (!(x->right)) {
+				Node *ret = x->left;
+				x->left = nullptr;
 				delete x;
 				x = nullptr;
 				return ret;
 			}
-			x->right_ = DeleteMax(x->right_);
-			x->size_ = Size(x->left_) + Size(x->right_) + 1;
+			x->right = DeleteMax(x->right);
+			x->size = Size(x->left) + Size(x->right) + 1;
 			return x;
 		}
 
 		Node *Delete(Node *x, const Key &key) {
 			if (!x) return nullptr;
 
-			int cmp = Compare(key, x->key_);
-			if (cmp<0) x->left_ = Delete(x->left_, key);
-			else if (cmp>0) x->right_ = Delete(x->right_, key);
+			int cmp = Compare(key, x->key);
+			if (cmp<0) x->left = Delete(x->left, key);
+			else if (cmp>0) x->right = Delete(x->right, key);
 			else {
-				if (!(x->right_)) {
-					Node *ret = x->left_;
-					x->left_ = nullptr;
+				if (!(x->right)) {
+					Node *ret = x->left;
+					x->left = nullptr;
 					delete x;
 					x = nullptr;
 					return ret;
 				}
-				if (!(x->left_)) {
-					Node *ret = x->right_;
-					x->right_ = nullptr;
+				if (!(x->left)) {
+					Node *ret = x->right;
+					x->right = nullptr;
 					delete x;
 					x = nullptr;
 					return ret;
 				}
 				Node *t = x;
-				x = Min(t->right_);
-				x = new Node(x->key_, x->val_, x->size_);
+				x = Min(t->right);
+				x = new Node{ x->key, x->val, x->size };
 				
-				x->right_ = DeleteMin(t->right_);
-				x->left_ = t->left_;
-				t->left_ = nullptr;
-				t->right_ = nullptr;
+				x->right = DeleteMin(t->right);
+				x->left = t->left;
+				t->left = nullptr;
+				t->right = nullptr;
 				delete t;
 				t = nullptr;
 			}
-			x->size_ = Size(x->left_) + Size(x->right_) + 1;
+			x->size = Size(x->left) + Size(x->right) + 1;
 			return x;
 		}
 
 		 Node *Min(Node *x) const {
-			if (!(x->left_)) return x;
-			else return Min(x->left_);
+			if (!(x->left)) return x;
+			else return Min(x->left);
 		}
 
 		 Node *Max(Node *x) const {
-			if (!(x->right_)) return x;
-			else return Max(x->right_);
+			if (!(x->right)) return x;
+			else return Max(x->right);
 		}
 
 		 Node *Floor(Node *x, const Key &key) const {
 			if (!x) return nullptr;
-			if (key == x->key_) return x;
-			if (key < x->key_) return Floor(x->left_, key);
-			Node *t = Floor(x->right_, key);
+			if (key == x->key) return x;
+			if (key < x->key) return Floor(x->left, key);
+			Node *t = Floor(x->right, key);
 			if (!t) return t;
 			else return x;
 		}
 
 		Node *Ceiling(Node *x, const Key &key) const {
 			if (!x) return nullptr;
-			if (key == x->key_) return x;
-			if (key < x->key_) {
-				Node *t = Ceiling(x->left_, key);
+			if (key == x->key) return x;
+			if (key < x->key) {
+				Node *t = Ceiling(x->left, key);
 				if (!t) return t;
 				else return x;
 			}
-			return Ceiling(x->right_, key);
+			return Ceiling(x->right, key);
 		}
 
 		 Node *Select(Node *x, size_t k) const {
 			if (!x) return nullptr;
-			size_t t= Size(x->left_);
-			if (t > k) return Select(x->left_, k);
-			else if (t < k) return Select(x->right_, k - t - 1);
+			size_t t= Size(x->left);
+			if (t > k) return Select(x->left, k);
+			else if (t < k) return Select(x->right, k - t - 1);
 			else return x;
 		}
 
 		size_t Rank(Node *x, const Key &key) const {
 			if (!x) return 0;
-			int cmp = Compare(key, x->key_);
-			if (cmp<0) return Rank(x->left_, key);
-			else if (cmp>0) return 1 + Size(x->left_) + Rank(x->right_, key);
-			else return Size(x->left_);
+			int cmp = Compare(key, x->key);
+			if (cmp<0) return Rank(x->left, key);
+			else if (cmp>0) return 1 + Size(x->left) + Rank(x->right, key);
+			else return Size(x->left);
 		}
 
 		void Keys(Node *x, Queue<Key> &queue, const Key &lo, const Key &hi) const {
 			if (!x) return;
-			int cmplo = Compare(lo, x->key_);
-			int cmphi = Compare(hi, x->key_);
-			if (cmplo<0) Keys(x->left_, queue, lo, hi);
-			if (cmplo <= 0 && cmphi >= 0) queue.Enqueue(x->key_);
-			if (cmphi >= 0) Keys(x->right_, queue, lo, hi);
+			int cmplo = Compare(lo, x->key);
+			int cmphi = Compare(hi, x->key);
+			if (cmplo<0) Keys(x->left, queue, lo, hi);
+			if (cmplo <= 0 && cmphi >= 0) queue.Enqueue(x->key);
+			if (cmphi >= 0) Keys(x->right, queue, lo, hi);
 		}
 
 		int Height(Node *x) const {
 			if (!x) return -1;
-			return 1 + std::Max(Height(x->left_), Height(x->right_));
+			return 1 + std::Max(Height(x->left), Height(x->right));
 		}
 
 	public:
@@ -225,7 +223,7 @@ namespace algorithmcpp {
 		std::optional<Value> Get(const Key &key) const {
 			Node *p = Get(root_, key);
 			if (!p) return std::optional<Value>();
-			else return std::optional<Value>(p->val_);
+			else return std::optional<Value>(p->val);
 		}
 
 		void Put(const Key &key, const Value &val) {
@@ -248,40 +246,40 @@ namespace algorithmcpp {
 			assert(Check());
 		}
 
-		void Delete(const Key &key_) {
-			root_ = Delete(root_, key_);
+		void Delete(const Key &key) {
+			root_ = Delete(root_, key);
 			assert(Check());
 		}
 
 		Key Min() const {
 			if(IsEmpty()) throw std::underflow_error("calls Min() with empty symbol table");
-			return Min(root_)->key_;
+			return Min(root_)->key;
 		}
 
 	    Key Max() const {
 			if(IsEmpty()) throw std::underflow_error("calls Max() with empty symbol table");
-			return Max(root_)->key_;
+			return Max(root_)->key;
 		}
 
 		std::optional<Key> Floor(const Key &key) const {
 			if (IsEmpty()) throw std::underflow_error("calls Floor() with empty symbol table");
 			Node *x = Floor(root_, key);
 			if (!x) return std::optional<Key>();
-			else return std::optional<Key>(x->key_);
+			else return std::optional<Key>(x->key);
 		}
 
 		std::optional<Key> Ceiling(const Key &key) const {
 			if (IsEmpty()) throw std::underflow_error("calls Ceiling() with empty symbol table");
 			Node *x = Ceiling(root_, key);
 			if (!x) return std::optional<Key>();
-			else return std::optional<Key>(x->key_);
+			else return std::optional<Key>(x->key);
 		}
 
 	    Key Select(size_t k) const {
 			if (k >= Size())
 				throw std::invalid_argument("argument to Select() is invalid: " + std::to_string(k));
 			Node *x = Select(root_, k);
-			return x->key_;
+			return x->key;
 		}
 
 		size_t Rank(const Key & key) const {
@@ -317,9 +315,9 @@ namespace algorithmcpp {
 			while (!queue.IsEmpty()) {
 				Node *x = queue.Dequeue();
 				if (!x) continue;
-				keys.Enqueue(x->key_);
-				queue.Enqueue(x->left_);
-				queue.Enqueue(x->right_);
+				keys.Enqueue(x->key);
+				queue.Enqueue(x->left);
+				queue.Enqueue(x->right);
 			}
 			return keys;
 		}
@@ -338,9 +336,9 @@ namespace algorithmcpp {
 
 		bool IsBST(Node *x, const Key *minP, const Key *maxP) const {
 			if (!x) return true;
-			if (minP && (Compare(x->key_, *minP) <= 0)) return false;
-			if (maxP && (Compare(x->key_, *maxP) >= 0)) return false;
-			return IsBST(x->left_, minP, &(x->key_)) && IsBST(x->right_, &(x->key_), maxP);
+			if (minP && (Compare(x->key, *minP) <= 0)) return false;
+			if (maxP && (Compare(x->key, *maxP) >= 0)) return false;
+			return IsBST(x->left, minP, &(x->key)) && IsBST(x->right, &(x->key), maxP);
 		}
 
 		bool IsSizeConsistent() const {
@@ -349,8 +347,8 @@ namespace algorithmcpp {
 
 		bool IsSizeConsistent(Node *x) const {
 			if (!x) return true;
-			if (x->size_ != Size(x->left_) + Size(x->right_) + 1) return false;
-			return IsSizeConsistent(x->left_) && IsSizeConsistent(x->right_);
+			if (x->size != Size(x->left) + Size(x->right) + 1) return false;
+			return IsSizeConsistent(x->left) && IsSizeConsistent(x->right);
 		}
 
 		bool IsRankConsistent() const {

@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
 	//Trimmer::MainTest();
 	//SuffixArrayX::MainTest();
 	//LongestRepeatedSubstring::MainTest();
-	LongestCommonSubstring::MainTest();
+	//LongestCommonSubstring::MainTest();
 	//FlowEdge::MainTest();
 	//FlowNetwork::MainTest();
 	//FordFulkerson::MainTest();
