@@ -26,12 +26,16 @@ namespace algorithmcpp {
 	public:
 		Bag() = default;
 		Bag(const Bag & rhs) {
-			for (const Node *p = rhs.first_; p!=nullptr;p=p->next_) {
+			Bag<Item> tmp;
+			for (const Node *p = rhs.first_; p != nullptr; p = p->next_) {
+				tmp.Add(p->item_);
+			}
+			for (const Node *p = tmp.first_; p != nullptr; p = p->next_) {
 				Add(p->item_);
 			}
 		}
 		Bag &operator=(Bag rhs) {
-			swap(*this, Bag(rhs));
+			swap(*this, rhs);
 			return *this;
 		}
 		Bag(Bag &&rhs) noexcept {

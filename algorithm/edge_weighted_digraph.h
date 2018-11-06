@@ -43,6 +43,8 @@ namespace algorithmcpp {
 				size_t w;
 				in >> v;
 				in >> w;
+				ValidateVertex(v);
+				ValidateVertex(w);
 				double edgeWeight;
 				in >> edgeWeight;
 				AddEdge(DirectedEdge(v, w, edgeWeight));

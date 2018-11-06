@@ -37,6 +37,9 @@
 #include"edge_weighted_digraph.h"
 #include"edge_weighted_directed_cycle.h"
 #include"edge_weighted_graph.h"
+#include"flow_edge.h"
+#include"flow_network.h"
+#include"ford_fulkerson.h"
 #include"graph.h"
 #include"heap.h"
 #include"index_max_pq.h"
@@ -174,6 +177,9 @@ int main(int argc, char *argv[]) {
 	//SuffixArrayX::MainTest();
 	//LongestRepeatedSubstring::MainTest();
 	LongestCommonSubstring::MainTest();
+	//FlowEdge::MainTest();
+	//FlowNetwork::MainTest();
+	//FordFulkerson::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;

@@ -96,6 +96,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -147,6 +148,9 @@
     <ClInclude Include="edge_weighted_digraph.h" />
     <ClInclude Include="edge_weighted_directed_cycle.h" />
     <ClInclude Include="edge_weighted_graph.h" />
+    <ClInclude Include="flow_edge.h" />
+    <ClInclude Include="flow_network.h" />
+    <ClInclude Include="ford_fulkerson.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="heap.h" />
     <ClInclude Include="index_max_pq.h" />
@@ -207,6 +211,7 @@
     <ClCompile Include="date.cpp" />
     <ClCompile Include="directed_edge.cpp" />
     <ClCompile Include="edge.cpp" />
+    <ClCompile Include="ford_fulkerson.cpp" />
     <ClCompile Include="memory_leak_tests.cpp" />
     <ClCompile Include="point2d.cpp" />
     <ClCompile Include="stdrandom.cpp" />

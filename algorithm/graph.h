@@ -25,13 +25,15 @@ namespace algorithmcpp {
 		Graph(std::istream &in){
 			in >> n_vertices_;
 			adjacencies_= std::vector<Bag<size_t>>(n_vertices_);
-			size_t n_edges_;
-			in >> n_edges_;
+			size_t n_edges;
+			in >> n_edges;
 			for (size_t i = 0; i !=n_edges_; ++i) {
 				size_t v;
 				size_t w;
 				in >> v;
-				in >> w;			
+				in >> w;
+				ValidateVertex(v);
+				ValidateVertex(w);
 				AddEdge(v, w);
 			}
 		}

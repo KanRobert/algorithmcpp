@@ -34,6 +34,8 @@ namespace algorithmcpp {
 				size_t w;
 				in >> v;
 				in >> w;
+				ValidateVertex(v);
+				ValidateVertex(w);
 				AddEdge(v, w);
 			}
 		}

@@ -1,0 +1,16 @@
+﻿  counter.cpp
+  date.cpp
+  directed_edge.cpp
+  edge.cpp
+  ford_fulkerson.cpp
+  memory_leak_tests.cpp
+  point2d.cpp
+  stdrandom.cpp
+  stopwatch_win32.cpp
+  substring.cpp
+  suffix_array.cpp
+  trimmer.cpp
+  Generating code
+  All 1162 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  algorithm.vcxproj -> C:\File\algorithmcpp\Release\algorithm.exe

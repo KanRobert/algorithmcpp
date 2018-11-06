@@ -267,6 +267,15 @@
     <ClInclude Include="substring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="flow_edge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flow_network.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ford_fulkerson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="date.cpp">
@@ -300,6 +309,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="substring.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ford_fulkerson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

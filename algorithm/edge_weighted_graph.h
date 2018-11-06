@@ -38,16 +38,18 @@ namespace algorithmcpp {
 		EdgeWeightedGraph(std::istream &in) {
 			in >> n_vertices_;
 			adjacencies_ = std::vector<Bag<Edge>>(n_vertices_);
-			size_t n_edges_;
-			in >> n_edges_;
+			size_t n_edges;
+			in >> n_edges;
 			for (size_t i = 0; i != n_edges_; ++i) {
 				size_t v;
 				size_t w;
 				in >> v;
 				in >> w;
-				double edgeWeight;
-				in >> edgeWeight;
-				AddEdge(Edge(v,w,edgeWeight));
+				ValidateVertex(v);
+				ValidateVertex(w);
+				double edge_weight;
+				in >> edge_weight;
+				AddEdge(Edge(v,w,edge_weight));
 			}
 		}
 
