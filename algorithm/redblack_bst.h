@@ -39,8 +39,8 @@ namespace algorithmcpp {
 		}
 
 	private:
-		static const bool kred_ = true;
-		static const bool kblack_ = false;
+		static const bool kRed = true;
+		static const bool kBlack = false;
 
 		struct Node {
 			Key key;
@@ -70,7 +70,7 @@ namespace algorithmcpp {
 
 		bool IsRed(Node *x) const{
 			if (!x) return false;
-			return x->color == kred_;
+			return x->color == kRed;
 		}
 
 		size_t Size(Node *x) const{
@@ -88,7 +88,7 @@ namespace algorithmcpp {
 		}
 
 		Node *Put(Node *h, const Key &key, const Value &val) {
-			if (!h) return new Node{ key, val, kred_, 1 };
+			if (!h) return new Node{ key, val, kRed, 1 };
 			if (key < h->key) h->left = Put(h->left, key, val);
 			else if (key > h->key) h->right = Put(h->right, key, val);
 			else h->val = val;
@@ -170,7 +170,7 @@ namespace algorithmcpp {
 			h->left = x->right;
 			x->right = h;
 			x->color = h->color;
-			h->color = kred_;
+			h->color = kRed;
 			x->size = h->size;
 			h->size = Size(h->left) + Size(h->right) + 1;
 			return x;
@@ -181,7 +181,7 @@ namespace algorithmcpp {
 			h->right = x->left;
 			x->left = h;
 			x->color = h->color;
-			h->color = kred_;
+			h->color = kRed;
 			x->size = h->size;
 			h->size = Size(h->left) + Size(h->right) + 1;
 			return x;
@@ -298,40 +298,40 @@ namespace algorithmcpp {
 
 		void Put(const Key &key, const Value &val) {
 			root_ = Put(root_, key, val);
-			root_->color = kblack_;
+			root_->color = kBlack;
 		}
 
 		void DeleteMin() {
 			if(IsEmpty()) throw std::underflow_error("BST underflow");
 
 			if (!IsRed(root_->left) && !IsRed(root_->right)) {
-				root_->color = kred_;
+				root_->color = kRed;
 			}
 
 			root_ = DeleteMin(root_);
-			if (!IsEmpty()) root_->color = kblack_;
+			if (!IsEmpty()) root_->color = kBlack;
 		}
 
 		void DeleteMax() {
 			if (IsEmpty()) throw std::underflow_error("BST underflow");
 
 			if (!IsRed(root_->left) && !IsRed(root_->right)) {
-				root_->color = kred_;
+				root_->color = kRed;
 			}
 
 			root_ = DeleteMax(root_);
-			if (!IsEmpty()) root_->color = kblack_;
+			if (!IsEmpty()) root_->color = kBlack;
 		}
 
 		void Delete(const Key &key) {
 			if (!Contains(key)) return;
 
 			if (!IsRed(root_->left) && !IsRed(root_->right)) {
-				root_->color = kred_;
+				root_->color = kRed;
 			}
 
 			root_ = Delete(root_, key);
-			if (!IsEmpty()) root_->color = kblack_;
+			if (!IsEmpty()) root_->color = kBlack;
 		}
 
 		int Height() const {

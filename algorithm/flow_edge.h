@@ -9,7 +9,7 @@
 namespace algorithmcpp {
 	class FlowEdge {
 	private:
-		static constexpr double kfloat_point_epsilon_ = 1e-10;
+		static constexpr double kFloatPointEpsilon = 1e-10;
 
 		size_t v_=0;
 		size_t w_=0;
@@ -69,8 +69,8 @@ namespace algorithmcpp {
 			else if (vertex == w_) flow_ += delta;
 			else throw std::invalid_argument("invalid endpoint");
 
-			if (std::abs(flow_) <= kfloat_point_epsilon_) flow_ = 0;
-			if (std::abs(flow_ - capacity_) <= kfloat_point_epsilon_) flow_ = capacity_;
+			if (std::abs(flow_) <= kFloatPointEpsilon) flow_ = 0;
+			if (std::abs(flow_ - capacity_) <= kFloatPointEpsilon) flow_ = capacity_;
 
 			if (flow_ < 0.0) throw std::invalid_argument("flow is negative");
 			if (flow_ > capacity_) throw std::invalid_argument("flow exceeds capacity");

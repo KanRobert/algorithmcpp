@@ -70,6 +70,7 @@
 #include"resizing_array_bag.h"
 #include"separate_chaining_hashst.h"
 #include"sequential_search_st.h"
+#include"set.h"
 #include"shell.h"
 #include"sparse_vector.h"
 #include"st.h"
@@ -180,6 +181,7 @@ int main(int argc, char *argv[]) {
 	//FlowEdge::MainTest();
 	//FlowNetwork::MainTest();
 	//FordFulkerson::MainTest();
+	Set<int>::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;

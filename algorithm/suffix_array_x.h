@@ -8,7 +8,7 @@
 namespace algorithmcpp {
 	class SuffixArrayX {
 	private:
-		static constexpr size_t kcut_off_ = 5;
+		static constexpr size_t kCutOff = 5;
 		std::string text_;
 		std::vector<size_t> index_;
 
@@ -57,7 +57,7 @@ namespace algorithmcpp {
 
 		void Sort(size_t lo, size_t hi, size_t d) {
 			using std::swap;
-			if (hi <= lo + kcut_off_) {
+			if (hi <= lo + kCutOff) {
 				Insertion(lo, hi, d);
 				return;
 			}

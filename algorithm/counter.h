@@ -14,7 +14,7 @@ namespace algorithmcpp {
 		friend bool operator>=(const Counter &, const Counter &);
 		friend int Compare(const Counter &, const Counter &);
 	private:
-		const std::string name_;
+		std::string name_;
 		size_t count_ = 0;
 
 	public:

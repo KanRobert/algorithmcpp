@@ -24,8 +24,8 @@ namespace algorithmcpp {
 		Date &operator=(Date &&) noexcept = default;
 		~Date() = default;
 
-		Date(size_t Month, size_t day, size_t year): month_(Month),day_(day),year_(year){
-			if (!IsValid(Month, day, year)) throw std::invalid_argument("invalid date");
+		Date(size_t month, size_t day, size_t year): month_(month),day_(day),year_(year){
+			if (!IsValid(month, day, year)) throw std::invalid_argument("invalid date");
 		}
 
 		Date(const std::string &date) {

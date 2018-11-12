@@ -19,7 +19,7 @@ namespace algorithmcpp {
 	class FordFulkerson {
 	private:
 		static FlowEdge flow_edge_;
-		static constexpr double kfloat_point_epsilon_ = 1e-10;
+		static constexpr double kFloatPointEpsilon = 1e-10;
 
 		size_t n_vertices_;
 		double value_=0.0;

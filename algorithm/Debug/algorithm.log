@@ -1,2 +1,7 @@
-﻿  memory_leak_tests.cpp
+﻿  counter.cpp
+  date.cpp
+  ford_fulkerson.cpp
+  graph_generator.cpp
+  memory_leak_tests.cpp
+  Generating Code...
   algorithm.vcxproj -> C:\File\algorithmcpp\Debug\algorithm.exe

@@ -17,7 +17,7 @@ namespace algorithmcpp {
 		friend void swap<Key, Value>(SeparateChainingHashST<Key, Value> &, SeparateChainingHashST<Key, Value> &);
 	private:
 		static constexpr size_t kInitCapacity = 4;
-		static constexpr std::hash<Key> hasher_ = std::hash<Key>{};
+		static constexpr std::hash<Key> kHasher = std::hash<Key>{};
 		size_t m_ = kInitCapacity;
 		size_t n_ = 0;
 		SequentialSearchST<Key,Value> *st_ = new SequentialSearchST<Key, Value>[m_];
@@ -36,7 +36,7 @@ namespace algorithmcpp {
 		}
 
 		size_t Hash(const Key &key) {
-			return hasher_(key) % m_;
+			return kHasher(key) % m_;
 		}
 
 	public:

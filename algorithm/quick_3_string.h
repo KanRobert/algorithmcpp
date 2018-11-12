@@ -12,7 +12,7 @@
 namespace algorithmcpp {
 	class Quick3String {
 	private:
-		static constexpr size_t kcut_off = 15;
+		static constexpr size_t kCutOff = 15;
 
 	public:
 		Quick3String(const Quick3String &) = delete;
@@ -44,7 +44,7 @@ namespace algorithmcpp {
 
 		static void Sort(std::vector<std::string> &a, size_t lo, size_t hi, size_t d) {
 			using std::swap;
-			if (hi <= lo + kcut_off) {
+			if (hi <= lo + kCutOff) {
 				Insertion(a, lo, hi, d);
 				return;
 			}

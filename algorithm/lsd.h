@@ -7,9 +7,9 @@
 namespace algorithmcpp {
 	class LSD {
 	private:
-		static constexpr unsigned char kbits_per_byte_ = 8;
-		static constexpr unsigned char kbits_per_int = sizeof(int) * 8;
-		static constexpr unsigned kn_ascii_ = 1U << kbits_per_byte_;
+		static constexpr unsigned char kBitsPerByte = 8;
+		static constexpr unsigned char kBitsPerInt = sizeof(int) * 8;
+		static constexpr unsigned kN_Ascii = 1U << kBitsPerByte;
 
 	public:
 		LSD(const LSD &) = delete;
@@ -21,11 +21,11 @@ namespace algorithmcpp {
 			std::vector<std::string> aux(n);
 			for (size_t d = w; d > 0;) {
 				--d;
-				std::vector<size_t> count(kn_ascii_ + 1);
+				std::vector<size_t> count(kN_Ascii + 1);
 				for (size_t i = 0; i < n; ++i) {
 					++count[a[i][d] + 1];
 				}		
-				for (size_t r = 0; r < kn_ascii_; ++r) {
+				for (size_t r = 0; r < kN_Ascii; ++r) {
 					count[r + 1] += count[r];
 				}
 				for (size_t i = 0; i < n; ++i) {
@@ -38,33 +38,33 @@ namespace algorithmcpp {
 		}
 
 		static void Sort(std::vector<int> &a) {
-			constexpr unsigned char mask = kn_ascii_ - 1;
-			constexpr unsigned char w = kbits_per_int / kbits_per_byte_;
+			constexpr unsigned char mask = kN_Ascii - 1;
+			constexpr unsigned char w = kBitsPerInt / kBitsPerByte;
 
 			size_t n = a.size();
 			std::vector<int> aux(n);
 			for (size_t d = 0; d < w; ++d) {
-				std::vector<size_t> count(kn_ascii_ + 1);
+				std::vector<size_t> count(kN_Ascii + 1);
 				for (size_t i = 0; i < n; ++i) {
-					size_t c = static_cast<size_t>((a[i] >> kbits_per_byte_ * d)&mask);
+					size_t c = static_cast<size_t>((a[i] >> kBitsPerByte * d)&mask);
 					++count[c + 1];
 				}
-				for (size_t r = 0; r < kn_ascii_; ++r) {
+				for (size_t r = 0; r < kN_Ascii; ++r) {
 					count[r + 1] += count[r];
 				}
 				if (d == w - 1) {
-					size_t shift1 = count[kn_ascii_] - count[kn_ascii_ / 2];
-					size_t shift2 = count[kn_ascii_ / 2];
-					for (size_t r = 0; r < kn_ascii_ / 2; ++r) {
+					size_t shift1 = count[kN_Ascii] - count[kN_Ascii / 2];
+					size_t shift2 = count[kN_Ascii / 2];
+					for (size_t r = 0; r < kN_Ascii / 2; ++r) {
 						count[r] += shift1;
 					}
-					for (size_t r = kn_ascii_ / 2; r < kn_ascii_; ++r) {
+					for (size_t r = kN_Ascii / 2; r < kN_Ascii; ++r) {
 						count[r] -= shift2;
 					}
 				}
 
 				for (size_t i = 0; i < n; ++i) {
-					size_t c = static_cast<size_t>((a[i] >> kbits_per_byte_ * d)&mask);
+					size_t c = static_cast<size_t>((a[i] >> kBitsPerByte * d)&mask);
 					aux[count[c]++] = a[i];
 				}
 				for (size_t i = 0; i < n; ++i) {

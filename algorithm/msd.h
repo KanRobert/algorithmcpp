@@ -11,10 +11,10 @@
 namespace algorithmcpp {
 	class MSD {
 	private:
-		static constexpr unsigned char kbits_per_byte_ = 8;
-		static constexpr unsigned char kbits_per_int = sizeof(int) * 8;
-		static constexpr unsigned kn_ascii_ = 1U << kbits_per_byte_;
-		static constexpr unsigned kcut_off_ = 15;
+		static constexpr unsigned char kBitsPerByte = 8;
+		static constexpr unsigned char kBitsPerInt = sizeof(int) * 8;
+		static constexpr unsigned kN_Ascii = 1U << kBitsPerByte;
+		static constexpr unsigned kCutOff = 15;
 
 	public:
 		MSD(const MSD &) = delete;
@@ -46,17 +46,17 @@ namespace algorithmcpp {
 
 
 		static void Sort(std::vector<std::string> &a, size_t lo, size_t hi, size_t d, std::vector<std::string> &aux) {
-			if (hi <= lo + kcut_off_) {
+			if (hi <= lo + kCutOff) {
 				Insertion(a, lo, hi, d);
 				return;
 			}
 
-			std::vector<size_t> count(kn_ascii_ + 2);
+			std::vector<size_t> count(kN_Ascii + 2);
 			for (size_t i = lo; i <= hi; ++i) {
 				int c = CharAt(a[i], d);
 				++count[c + 2];
 			}
-			for (size_t r = 0; r < kn_ascii_ + 1; ++r) {
+			for (size_t r = 0; r < kN_Ascii + 1; ++r) {
 				count[r + 1] += count[r];
 			}
 			for (size_t i = lo; i <= hi; ++i) {
@@ -67,7 +67,7 @@ namespace algorithmcpp {
 				a[i] = aux[i - lo];
 			}
 
-			for (size_t r = 1; r < kn_ascii_+1; ++r) {
+			for (size_t r = 1; r < kN_Ascii+1; ++r) {
 				Sort(a, lo + count[r], lo + count[r + 1], d + 1, aux);
 			}
 

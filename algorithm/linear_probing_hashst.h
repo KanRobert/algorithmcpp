@@ -20,7 +20,7 @@ namespace algorithmcpp {
 		friend void swap<Key, Value>(LinearProbingHashST<Key, Value> &, LinearProbingHashST<Key, Value> &);
 	private:
 		static constexpr size_t kInitCapacity = 4;
-		static constexpr std::hash<Key> hasher_ = std::hash<Key>{};
+		static constexpr std::hash<Key> kHasher = std::hash<Key>{};
 		static std::allocator<Key> kalloc_;
 		static std::allocator<Value> valloc_;
 		size_t m_ = kInitCapacity;
@@ -31,7 +31,7 @@ namespace algorithmcpp {
 		
 
 		size_t Hash(const Key &key) const{
-			return hasher_(key) % m_;
+			return kHasher(key) % m_;
 		}
 
 		void Free() {

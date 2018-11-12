@@ -153,6 +153,7 @@
     <ClInclude Include="flow_network.h" />
     <ClInclude Include="ford_fulkerson.h" />
     <ClInclude Include="graph.h" />
+    <ClInclude Include="graph_generator.h" />
     <ClInclude Include="heap.h" />
     <ClInclude Include="index_max_pq.h" />
     <ClInclude Include="index_min_pq.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="resizing_array_bag.h" />
     <ClInclude Include="separate_chaining_hashst.h" />
     <ClInclude Include="sequential_search_st.h" />
+    <ClInclude Include="set.h" />
     <ClInclude Include="shell.h" />
     <ClInclude Include="sparse_vector.h" />
     <ClInclude Include="st.h" />
@@ -213,6 +215,7 @@
     <ClCompile Include="directed_edge.cpp" />
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="ford_fulkerson.cpp" />
+    <ClCompile Include="graph_generator.cpp" />
     <ClCompile Include="memory_leak_tests.cpp" />
     <ClCompile Include="point2d.cpp" />
     <ClCompile Include="stdrandom.cpp" />
