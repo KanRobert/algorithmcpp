@@ -1,8 +1,11 @@
 #pragma once
+#pragma warning(disable:4996)
 #include"graph.h"
 #include"set.h"
 #include"stdrandom.h"
+#include"min_pq.h"
 #include<stdexcept>
+#include<cstdio>
 
 namespace algorithmcpp {
 	class GraphGenerator {
@@ -108,6 +111,224 @@ namespace algorithmcpp {
 				}
 			}
 			return G;
+		}
+
+		static Graph Path(size_t n_vertices) {
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_vertices);
+			for (size_t i = 0; i < n_vertices; ++i) {
+				vertices[i] = i;
+			}
+			StdRandom::Shuffle(vertices);
+			for (size_t i = 0; i < n_vertices - 1; ++i) {
+				G.AddEdge(vertices[i], vertices[i + 1]);
+			}
+			return G;
+		}
+
+		static Graph BinaryTree(size_t n_vertices) {
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_vertices);
+			for (size_t i = 0; i < n_vertices; ++i) {
+				vertices[i] = i;
+			}
+			StdRandom::Shuffle(vertices);
+			for (size_t i = 1; i < n_vertices; ++i) {
+				G.AddEdge(vertices[i], vertices[(i - 1) / 2]);
+			}
+			return G;
+		}
+
+		static Graph Cycle(size_t n_vertices) {
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_vertices);
+			for (size_t i = 0; i < n_vertices; ++i) {
+				vertices[i] = i;
+			}
+			StdRandom::Shuffle(vertices);
+			for (size_t i = 0; i < n_vertices - 1; ++i) {
+				G.AddEdge(vertices[i], vertices[i + 1]);
+			}
+			G.AddEdge(vertices[n_vertices - 1], vertices[0]);
+			return G;
+		}
+
+		static Graph EulerianCycle(size_t n_vertices, size_t n_edges) {
+			if (n_vertices == 0) {
+				throw std::invalid_argument("An Eulerian cycle must have at least one vertex");
+			}
+			if (n_edges == 0) {
+				throw std::invalid_argument("An Eulerian cycle must have at least one edge");
+			}
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_edges);
+			for (size_t i = 0; i < n_edges; ++i) {
+				vertices[i] = StdRandom::Uniform(n_vertices);
+			}
+			for (size_t i = 0; i < n_edges - 1; ++i) {
+				G.AddEdge(vertices[i], vertices[i + 1]);
+			}
+			G.AddEdge(vertices[n_edges - 1], vertices[0]);
+			return G;
+		}
+
+		static Graph EulerianPath(size_t n_vertices, size_t n_edges) {
+			if (n_vertices == 0) {
+				throw std::invalid_argument("An Eulerian path must have at least one vertex");
+			}
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_edges+1);
+			for (size_t i = 0; i < n_edges + 1; ++i) {
+				vertices[i] = StdRandom::Uniform(n_vertices);
+			}
+			for (size_t i = 0; i < n_edges; ++i) {
+				G.AddEdge(vertices[i], vertices[i + 1]);
+			}
+			return G;
+		}
+
+		static Graph Wheel(size_t n_vertices) {
+			if (n_vertices <= 1) throw std::invalid_argument("Number of vertices must be at least 2");
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_vertices);
+			for (size_t i = 0; i < n_vertices; ++i) {
+				vertices[i] = i;
+			}
+			StdRandom::Shuffle(vertices);
+
+			for (size_t i = 1; i < n_vertices - 1; ++i) {
+				G.AddEdge(vertices[i], vertices[i + 1]);
+			}
+			G.AddEdge(vertices[n_vertices - 1], vertices[1]);
+
+			for (size_t i = 1; i < n_vertices; ++i) {
+				G.AddEdge(vertices[0], vertices[i]);
+			}
+			return G;
+		}
+
+		static Graph Star(size_t n_vertices) {
+			if (n_vertices == 0) throw std::invalid_argument("Number of vertices must be at least 1");
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_vertices);
+			for (size_t i = 0; i < n_vertices; ++i) {
+				vertices[i] = i;
+			}
+			StdRandom::Shuffle(vertices);
+			for (size_t i = 1; i < n_vertices; ++i) {
+				G.AddEdge(vertices[0], vertices[i]);
+			}
+			return G;
+		}
+
+		static Graph Regular(size_t n_vertices, size_t k) {
+			if (n_vertices*k % 2 != 0) {
+				throw std::invalid_argument("Number of vertices * k must be even");
+			}
+			Graph G(n_vertices);
+			std::vector<size_t> vertices(n_vertices*k);
+			for (size_t v = 0; v < n_vertices; ++v) {
+				for (size_t j = 0; j < k; ++j) {
+					vertices[v + n_vertices * j] = v;
+				}
+			}
+			StdRandom::Shuffle(vertices);
+			for (size_t i = 0; i < n_vertices*k / 2; ++i) {
+				G.AddEdge(vertices[2 * i], vertices[2 * i + 1]);
+			}
+			return G;
+		}
+
+		static Graph Tree(size_t n_vertices) {
+			Graph G(n_vertices);
+			if (n_vertices == 1) return G;
+			std::vector<size_t> prufer(n_vertices - 2);
+			for (size_t i = 0; i < n_vertices - 2; ++i) {
+				prufer[i] = StdRandom::Uniform(n_vertices);
+			}
+			std::vector<size_t> degree(n_vertices);
+			for (size_t v = 0; v < n_vertices; ++v) {
+				degree[v] = 1;
+			}
+			for (size_t i = 0; i < n_vertices - 2; ++i) {
+				++degree[prufer[i]];
+			}
+
+			MinPQ<size_t> pq;
+			for (size_t v = 0; v < n_vertices; ++v) {
+				if (degree[v] == 1) pq.Insert(v);
+			}
+
+			for (size_t i = 0; i < n_vertices - 2; ++i) {
+				size_t v = pq.DelMin();
+				G.AddEdge(v, prufer[i]);
+				--degree[v];
+				--degree[prufer[i]];
+				if (degree[prufer[i]] == 1) pq.Insert(prufer[i]);
+			}
+			G.AddEdge(pq.DelMin(), pq.DelMin());
+			return G;
+		}
+
+		static void MainTest(int argc = 0, char *argv[] = nullptr) {
+			size_t n_vertices = 10;
+			size_t n_edges = 12;
+			size_t n_vertices1 = n_vertices / 2;
+			size_t n_vertices2 = n_vertices - n_vertices1;
+
+			std::printf("complete graph\n");
+			std::printf("%s\n", Complete(n_vertices).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("simple\n");
+			std::printf("%s\n", Simple(n_vertices,n_edges).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("Erdos-Renyi\n");
+			double p = n_edges / (n_vertices*(n_vertices - 1) / 2.0);
+			std::printf("%s\n", Simple(n_vertices, p).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("complete bipartite\n");
+			std::printf("%s\n", CompleteBipartite(n_vertices1, n_vertices2).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("bipartite\n");
+			std::printf("%s\n", Bipartite(n_vertices1, n_vertices2,n_edges).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("Erdos Renyi bipartite\n");
+			double q = static_cast<double>(n_edges) / (n_vertices1*n_vertices2);
+			std::printf("%s\n", Bipartite(n_vertices1, n_vertices2, q).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("path\n");
+			std::printf("%s\n", Path(n_vertices).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("cycle\n");
+			std::printf("%s\n", Cycle(n_vertices).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("binary tree\n");
+			std::printf("%s\n", BinaryTree(n_vertices).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("tree\n");
+			std::printf("%s\n", Tree(n_vertices).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("4-regular\n");
+			std::printf("%s\n", Regular(n_vertices,4).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("star\n");
+			std::printf("%s\n", Star(n_vertices).ToString().c_str());
+			std::printf("\n");
+
+			std::printf("wheel\n");
+			std::printf("%s\n", Wheel(n_vertices).ToString().c_str());
+			std::printf("\n");
 		}
 	};
 

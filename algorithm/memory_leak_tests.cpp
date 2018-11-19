@@ -15,6 +15,7 @@
 #include"bag.h"
 #include"bellman_ford_sp.h"
 #include"binary_search.h"
+#include"bipartite.h"
 #include"breadth_first_directed_paths.h"
 #include"breadth_first_paths.h"
 #include"bst.h"
@@ -41,6 +42,7 @@
 #include"flow_network.h"
 #include"ford_fulkerson.h"
 #include"graph.h"
+#include"graph_generator.h"
 #include"heap.h"
 #include"index_max_pq.h"
 #include"index_min_pq.h"
@@ -181,7 +183,9 @@ int main(int argc, char *argv[]) {
 	//FlowEdge::MainTest();
 	//FlowNetwork::MainTest();
 	//FordFulkerson::MainTest();
-	Set<int>::MainTest();
+	//Set<int>::MainTest();
+	//GraphGenerator::MainTest();
+	Bipartite::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;
