@@ -126,6 +126,9 @@
     <ClInclude Include="bellman_ford_sp.h" />
     <ClInclude Include="binary_search.h" />
     <ClInclude Include="bipartite.h" />
+    <ClInclude Include="bipartite_matching.h" />
+    <ClInclude Include="bipartite_x.h" />
+    <ClInclude Include="black_filter.h" />
     <ClInclude Include="breadth_first_directed_paths.h" />
     <ClInclude Include="breadth_first_paths.h" />
     <ClInclude Include="bst.h" />
@@ -206,7 +209,7 @@
     <ClInclude Include="uf.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="weighted_quick_union_uf.h" />
-    <ClInclude Include="whitefilter.h" />
+    <ClInclude Include="white_filter.h" />
     <ClInclude Include="whitelist.h" />
   </ItemGroup>
   <ItemGroup>

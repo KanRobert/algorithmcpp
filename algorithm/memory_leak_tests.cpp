@@ -16,6 +16,8 @@
 #include"bellman_ford_sp.h"
 #include"binary_search.h"
 #include"bipartite.h"
+#include"bipartite_matching.h"
+#include"bipartite_x.h"
 #include"breadth_first_directed_paths.h"
 #include"breadth_first_paths.h"
 #include"bst.h"
@@ -92,7 +94,7 @@
 #include"uf.h"
 #include"vector.h"
 #include"weighted_quick_union_uf.h"
-#include"whitefilter.h"
+#include"white_filter.h"
 #include"whitelist.h"
 
 
@@ -185,7 +187,9 @@ int main(int argc, char *argv[]) {
 	//FordFulkerson::MainTest();
 	//Set<int>::MainTest();
 	//GraphGenerator::MainTest();
-	Bipartite::MainTest();
+	//Bipartite::MainTest();
+	//BipartiteX::MainTest();
+	BipartiteMatching::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;
