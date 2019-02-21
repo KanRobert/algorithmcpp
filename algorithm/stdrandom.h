@@ -63,6 +63,10 @@ namespace algorithmcpp {
 			return a+Uniform(Minus(b,a));
 		}
 
+		static size_t Uniform(size_t a, size_t b) {
+			return static_cast<size_t>(Uniform(static_cast<int>(a), static_cast<int>(b)));
+		}
+
 		static double Uniform(double a, double b) {
 			if(b<=a) throw std::invalid_argument("Invalid range");
 			return a + Uniform()*(b - a);

@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="acyclic_lp.h" />
     <ClInclude Include="acyclic_sp.h" />
+    <ClInclude Include="adj_matrix_edge_weighted_graph.h" />
     <ClInclude Include="average.h" />
     <ClInclude Include="avltree_st.h" />
     <ClInclude Include="bag.h" />
@@ -142,16 +143,20 @@
     <ClInclude Include="depth_first_order.h" />
     <ClInclude Include="depth_first_paths.h" />
     <ClInclude Include="digraph.h" />
+    <ClInclude Include="digraph_generator.h" />
     <ClInclude Include="dijkstra_allpairs_sp.h" />
     <ClInclude Include="dijkstra_sp.h" />
     <ClInclude Include="dijkstra_undirected_sp.h" />
     <ClInclude Include="directed_cycle.h" />
     <ClInclude Include="directed_edge.h" />
+    <ClInclude Include="directed_eulerian_cycle.h" />
     <ClInclude Include="doubling_ratio.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="edge_weighted_digraph.h" />
     <ClInclude Include="edge_weighted_directed_cycle.h" />
     <ClInclude Include="edge_weighted_graph.h" />
+    <ClInclude Include="eulerian_cycle.h" />
+    <ClInclude Include="eulerian_path.h" />
     <ClInclude Include="flow_edge.h" />
     <ClInclude Include="flow_network.h" />
     <ClInclude Include="ford_fulkerson.h" />
@@ -215,6 +220,7 @@
   <ItemGroup>
     <ClCompile Include="counter.cpp" />
     <ClCompile Include="date.cpp" />
+    <ClCompile Include="digraph_generator.cpp" />
     <ClCompile Include="directed_edge.cpp" />
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="ford_fulkerson.cpp" />

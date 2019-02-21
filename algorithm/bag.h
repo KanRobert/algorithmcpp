@@ -85,6 +85,12 @@ namespace algorithmcpp {
 				return *this;
 			}
 
+			iterator operator++(int) {
+				auto pre = pos_;
+				pos_ = pos_->next;
+				return iterator(pre);
+			}
+
 			bool operator!=(const iterator &other) const {
 				return pos_ != other.pos_;
 			}
@@ -104,6 +110,12 @@ namespace algorithmcpp {
 			const_iterator &operator++() {
 				pos_ = pos_->next;
 				return *this;
+			}
+
+			const_iterator operator++(int) {
+				auto pre = pos_;
+				pos_ = pos_->next;
+				return const_iterator(pre);
 			}
 
 			bool operator!=(const const_iterator &other) const {

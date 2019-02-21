@@ -10,6 +10,7 @@
 
 #include"acyclic_lp.h"
 #include"acyclic_sp.h"
+#include"adj_matrix_edge_weighted_graph.h"
 #include"average.h"
 #include"avltree_st.h"
 #include"bag.h"
@@ -31,15 +32,19 @@
 #include"depth_first_paths.h"
 #include"depth_first_order.h"
 #include"digraph.h"
+#include"digraph_generator.h"
 #include"dijkstra_sp.h"
 #include"dijkstra_undirected_sp.h"
 #include"directed_cycle.h"
 #include"directed_edge.h"
+#include"directed_eulerian_cycle.h"
 #include"doubling_ratio.h"
 #include"edge.h"
 #include"edge_weighted_digraph.h"
 #include"edge_weighted_directed_cycle.h"
 #include"edge_weighted_graph.h"
+#include"eulerian_cycle.h"
+#include"eulerian_path.h"
 #include"flow_edge.h"
 #include"flow_network.h"
 #include"ford_fulkerson.h"
@@ -189,7 +194,12 @@ int main(int argc, char *argv[]) {
 	//GraphGenerator::MainTest();
 	//Bipartite::MainTest();
 	//BipartiteX::MainTest();
-	BipartiteMatching::MainTest();
+	//BipartiteMatching::MainTest();
+	//AdjMatrixEdgeWeightedDigraph::MainTest();
+	//EulerianPath::MainTest();
+	//EulerianCycle::MainTest();
+	//DigraphGenerator::MainTest();
+	DirectedEulerianCycle::MainTest();
 	_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;
